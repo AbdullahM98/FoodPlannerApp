@@ -1,4 +1,6 @@
-package com.example.foodplannerapp.model;
+package com.example.foodplannerapp.model.RemoteData;
+
+import com.example.foodplannerapp.model.Category;
 
 import java.util.List;
 
