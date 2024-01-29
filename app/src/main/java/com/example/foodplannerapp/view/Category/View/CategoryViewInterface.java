@@ -5,6 +5,6 @@ import com.example.foodplannerapp.model.Category;
 import java.util.List;
 
 public interface CategoryViewInterface {
-        public void showData(List<Category> categories);
+        public <T>void showData(List<T> categories);
         void onFailure(String error);
 }

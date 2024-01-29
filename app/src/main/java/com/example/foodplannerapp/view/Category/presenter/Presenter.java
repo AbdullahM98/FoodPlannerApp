@@ -18,9 +18,8 @@ public class Presenter implements NetworkCallBack , IPresenter{
 
     }
 
-    @Override
-    public void onSuccessResult(List<Category> categories) {
-        categoryView.showData(categories);
+    public <T>void onSuccessResult(List<T> categories) {
+        categoryView.showData((List<Category>) categories);
     }
 
     @Override

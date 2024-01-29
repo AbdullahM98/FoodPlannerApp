@@ -58,13 +58,14 @@ public class CategoryFragment extends Fragment implements CategoryViewInterface 
         recyclerView.setAdapter(adapetr);
         presenter = new Presenter(this, Repository.getInstance(RemoteDataSource.getInstance()));
         presenter.getData();
+
         return view;
     }
 
 
     @Override
-    public void showData(List<Category> categories) {
-        adapetr.setList(categories);
+    public <T>void showData(List<T> categories) {
+        adapetr.setList((List<Category>) categories);
         adapetr.notifyDataSetChanged();
 
     }

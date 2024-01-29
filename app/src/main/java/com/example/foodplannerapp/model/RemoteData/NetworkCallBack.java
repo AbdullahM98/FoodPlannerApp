@@ -5,6 +5,6 @@ import com.example.foodplannerapp.model.Category;
 import java.util.List;
 
 public interface NetworkCallBack {
-   void onSuccessResult(List<Category> categories);
+  <T> void onSuccessResult(List<T> obj);
    void onFailedResult(String errorMsg);
 }

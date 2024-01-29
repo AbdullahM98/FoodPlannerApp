@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.example.foodplannerapp.model.CategoriesWrapper;
 import com.example.foodplannerapp.model.Category;
+import com.example.foodplannerapp.model.MealPojo;
+import com.example.foodplannerapp.model.MealRootPojo;
 import com.example.foodplannerapp.utils.Constants;
 
 import java.util.List;
@@ -32,7 +34,7 @@ public class RemoteDataSource  {
         }
         return instance;
     }
-    public void makeServiceCall(NetworkCallBack networkCallBack){
+    public void getCategoryCall(NetworkCallBack networkCallBack){
 
 
         Call<CategoriesWrapper> call = apiServices.getCategories();
@@ -52,5 +54,20 @@ public class RemoteDataSource  {
             }
         });
 
+    }
+    public void getRandomMealCall(NetworkCallBack networkCallBack){
+        Call<MealRootPojo> call = apiServices.getRandomMeal();
+        call.enqueue(new Callback<MealRootPojo>() {
+            @Override
+            public void onResponse(Call<MealRootPojo> call, Response<MealRootPojo> response) {
+                networkCallBack.onSuccessResult(response.body().getMealList());
+
+            }
+
+            @Override
+            public void onFailure(Call<MealRootPojo> call, Throwable t) {
+                networkCallBack.onFailedResult(t.getMessage());
+            }
+        });
     }
 }

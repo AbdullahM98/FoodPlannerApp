@@ -20,6 +20,6 @@ public class Repository implements RepoInterface {
 
     @Override
     public void getAllCategories(NetworkCallBack networkCallBack) {
-        remoteData.makeServiceCall(networkCallBack);
+        remoteData.getCategoryCall(networkCallBack);
     }
 }
