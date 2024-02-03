@@ -1,25 +1,23 @@
 package com.example.foodplannerapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.foodplannerapp.R;
-import com.example.foodplannerapp.view.Category.View.CategoryFragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    NavController navController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CategoryFragment fragment = new CategoryFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction trans = manager.beginTransaction();
-        trans.add(R.id.fragmentContainerView2,fragment,"CategoryFragment");
+        navController = Navigation.findNavController(this,R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this,navController);
         Log.d("TAG", "onCreate: Activity");
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="dish_of_the">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#2A2A2A</item>
+    </style>
+    <style name="welcome_bac">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/orange</item>
+    </style>
+</resources>

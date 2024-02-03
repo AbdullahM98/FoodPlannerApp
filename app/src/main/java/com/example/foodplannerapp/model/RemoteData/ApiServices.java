@@ -1,21 +1,16 @@
 package com.example.foodplannerapp.model.RemoteData;
 
-import com.example.foodplannerapp.model.CategoriesWrapper;
-import com.example.foodplannerapp.model.Category;
-import com.example.foodplannerapp.model.MealPojo;
-import com.example.foodplannerapp.model.MealRootPojo;
-
-import java.util.List;
+import com.example.foodplannerapp.model.RootCategories;
+import com.example.foodplannerapp.model.RootMeal;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
 import retrofit2.http.GET;
 
 public interface ApiServices {
   @GET("categories.php")
-  Call<CategoriesWrapper> getCategories();
+  Call<RootCategories> getCategories();
 
   @GET("random.php")
-  Call<MealRootPojo> getRandomMeal();
+  Call<RootMeal> getRandomMeal();
 
 }

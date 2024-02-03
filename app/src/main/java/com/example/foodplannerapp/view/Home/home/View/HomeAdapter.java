@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Category.View;
+package com.example.foodplannerapp.view.Home.home.View;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,13 +17,13 @@ import com.example.foodplannerapp.model.Category;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     List<Category> categories;
     Category category ;
     Context context;
     ViewHolder holder;
 
-    public CategoryAdapter(Context context,List<Category> categories) {
+    public HomeAdapter(Context context, List<Category> categories) {
         this.categories = categories;
         this.context = context;
     }
@@ -41,7 +41,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         category = categories.get(position);
         holder.titleTxt.setText(category.getName());
-        holder.descTxt.setText(category.getDescription());
+
         Glide.with(context)
                 .load(category.getImgUrl())
                 .centerCrop()
@@ -57,19 +57,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         this.categories = categories;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        ConstraintLayout category_row ;
+        CardView category_row ;
         ImageView imgView ;
         TextView titleTxt;
 
-        TextView descTxt ;
+
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             category_row = itemView.findViewById(R.id.category_row);
-            imgView = itemView.findViewById(R.id.imageView);
-            descTxt = itemView.findViewById(R.id.textView);
-            titleTxt = itemView.findViewById(R.id.textView2);
+            titleTxt = itemView.findViewById(R.id.textViewHomeMealName);
+            imgView = itemView.findViewById(R.id.imageViewHomeCategory);
+
 
 
 

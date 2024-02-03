@@ -22,4 +22,10 @@ public class Repository implements RepoInterface {
     public void getAllCategories(NetworkCallBack networkCallBack) {
         remoteData.getCategoryCall(networkCallBack);
     }
+
+    @Override
+    public void getRandomMeal(NetworkCallBack networkCallBack) {
+        remoteData.getRandomMealCall(networkCallBack);
+    }
+
 }
