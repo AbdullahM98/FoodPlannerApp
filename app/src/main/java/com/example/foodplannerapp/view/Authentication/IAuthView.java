@@ -4,6 +4,6 @@ import android.view.View;
 
 public interface IAuthView {
     void showToast(String msg);
-    void updateUi(String destination);
+    void updateUi();
 
 }

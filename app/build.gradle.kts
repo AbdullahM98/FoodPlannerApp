@@ -55,4 +55,6 @@ dependencies {
     implementation ("androidx.navigation:navigation-fragment:2.5.3")
     implementation ("androidx.navigation:navigation-ui:2.5.3")
     implementation ("com.airbnb.android:lottie:3.4.0")
+
+
 }
