@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.example.foodplannerapp.model.Category;
 import com.example.foodplannerapp.model.MealPojo;
-import com.example.foodplannerapp.model.RemoteDataSource.NetworkCallBack;
-import com.example.foodplannerapp.model.RemoteDataSource.RepoInterface;
+import com.example.foodplannerapp.model.RemoteData.NetworkCallBack;
+import com.example.foodplannerapp.model.RemoteData.RepoInterface;
 import com.example.foodplannerapp.view.Home.home.View.HomeViewInterface;
 
 import java.util.ArrayList;
