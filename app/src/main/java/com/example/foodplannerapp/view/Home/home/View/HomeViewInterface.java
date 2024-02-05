@@ -6,7 +6,7 @@ import com.example.foodplannerapp.model.MealPojo;
 import java.util.List;
 
 public interface HomeViewInterface {
-        void showData(List<Category> categories);
+        public void showData(List<Category> categories);
         void showMeal(List<MealPojo> meal );
         void onFailure(String error);
 }
