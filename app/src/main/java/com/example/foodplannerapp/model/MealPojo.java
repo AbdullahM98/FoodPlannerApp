@@ -1,8 +1,12 @@
 package com.example.foodplannerapp.model;
 
+import androidx.room.Entity;
+
 import com.google.gson.annotations.SerializedName;
 
-public class MealPojo {
+import java.io.Serializable;
+
+public class MealPojo implements Serializable {
 
 	@SerializedName("strImageSource")
 	private Object strImageSource;

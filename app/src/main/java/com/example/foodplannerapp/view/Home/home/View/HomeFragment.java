@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,11 +19,11 @@ import com.bumptech.glide.Glide;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.Category;
 import com.example.foodplannerapp.model.MealPojo;
-import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
-import com.example.foodplannerapp.model.RemoteData.Repository;
+import com.example.foodplannerapp.model.RemoteDataSource.RemoteDataSource;
+import com.example.foodplannerapp.model.RemoteDataSource.Repository;
 import com.example.foodplannerapp.view.Home.home.presenter.IPresenter;
 import com.example.foodplannerapp.view.Home.home.presenter.Presenter;
-
+import com.example.foodplannerapp.view.Home.home.View.HomeFragmentDirections.ActionHomeFragment2ToMealDetailsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,14 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
         recyclerView.setAdapter(adapetr);
         presenter = new Presenter(this, Repository.getInstance(RemoteDataSource.getInstance()));
         presenter.getData();
+        mealCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               ActionHomeFragment2ToMealDetailsFragment action = HomeFragmentDirections.actionHomeFragment2ToMealDetailsFragment();
+               action.setMealPojo(mealPojo);
+               Navigation.findNavController(view).navigate(action);
+            }
+        });
 
         return view;
     }

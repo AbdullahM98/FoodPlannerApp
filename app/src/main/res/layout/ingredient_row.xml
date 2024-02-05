@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imgVwMeal"
+        android:id="@+id/imgViewMeal"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="76dp"
