@@ -1,5 +1,10 @@
 plugins {
     id("com.android.application")
+<<<<<<< Updated upstream
+=======
+    id ("androidx.navigation.safeargs")
+    id("com.google.gms.google-services")
+>>>>>>> Stashed changes
 }
 
 android {
@@ -29,6 +34,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -39,4 +48,27 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+<<<<<<< Updated upstream
+=======
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.7.2")
+    implementation ("com.squareup.retrofit2:converter-gson:2.7.2")
+    implementation ("com.squareup.okhttp3:okhttp:3.6.0")
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    //room
+    implementation("androidx.room:room-runtime:2.4.1")
+    annotationProcessor("androidx.room:room-compiler:2.4.1")
+    //Navigation
+    implementation ("androidx.navigation:navigation-fragment:2.5.3")
+    implementation ("androidx.navigation:navigation-ui:2.5.3")
+    //Lottie
+    implementation ("com.airbnb.android:lottie:3.4.0")
+    //rounded image
+    implementation ("com.makeramen:roundedimageview:2.3.0")
+
+
+>>>>>>> Stashed changes
 }
