@@ -23,7 +23,7 @@ import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
 import com.example.foodplannerapp.model.RemoteData.Repository;
 import com.example.foodplannerapp.view.Home.home.presenter.IPresenter;
 import com.example.foodplannerapp.view.Home.home.presenter.Presenter;
-
+import com.example.foodplannerapp.view.Home.home.View.HomeFragmentDirections.ActionHomeFragment2ToMealDetailsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,8 +71,8 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
         mealCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HomeFragmentDirections.ActionHomeFragment2ToMealDetailsFragment action = HomeFragmentDirections.actionHomeFragment2ToMealDetailsFragment();
-                action.setMealPojo(mealPojo);
+           ActionHomeFragment2ToMealDetailsFragment action = HomeFragmentDirections.actionHomeFragment2ToMealDetailsFragment(mealPojo);
+              //  action.setMealPojo(mealPojo);
                 Navigation.findNavController(view).navigate(action);
             }
         });
