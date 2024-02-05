@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("androidx.navigation.safeargs")
     id("com.google.gms.google-services")
 }
 
@@ -53,10 +54,12 @@ dependencies {
     //room
     implementation("androidx.room:room-runtime:2.4.1")
     annotationProcessor("androidx.room:room-compiler:2.4.1")
+    // nav
     implementation ("androidx.navigation:navigation-fragment:2.5.3")
     implementation ("androidx.navigation:navigation-ui:2.5.3")
+    //lottie
     implementation ("com.airbnb.android:lottie:3.4.0")
+    //rounded
     implementation ("com.makeramen:roundedimageview:2.3.0")
-    implementation ("androidx.room:room-runtime:2.4.1")
-    annotationProcessor ("androidx.room:room-compiler:2.4.1")
+
 }
