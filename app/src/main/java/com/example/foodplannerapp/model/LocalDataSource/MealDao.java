@@ -1,6 +1,9 @@
 package com.example.foodplannerapp.model.LocalDataSource;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.foodplannerapp.model.MealPojo;
@@ -11,6 +14,8 @@ import java.util.List;
 public interface MealDao {
     @Query("SELECt* FROM favorite_meal_table")
     List<MealPojo>  getAllMeals();
-    void addMeal(MealPojo mealPojo);
-    void removeMeal(MealPojo mealPojo);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void addMeal(LocalMealPojo mealPojo);
+    @Delete
+    void removeMeal(LocalMealPojo mealPojo);
 }

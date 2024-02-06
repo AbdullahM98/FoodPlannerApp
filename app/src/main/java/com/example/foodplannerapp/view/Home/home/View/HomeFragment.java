@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.Category;
+import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
 import com.example.foodplannerapp.model.RemoteData.Repository;
@@ -66,7 +67,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
         recyclerView.setLayoutManager(layoutManager);
         adapetr = new HomeAdapter(this.getContext(),categories);
         recyclerView.setAdapter(adapetr);
-        presenter = new Presenter(this, Repository.getInstance(RemoteDataSource.getInstance()));
+        presenter = new Presenter(this, Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())));
         presenter.getData();
         mealCard.setOnClickListener(new View.OnClickListener() {
             @Override
