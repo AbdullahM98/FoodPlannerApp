@@ -1,9 +1,16 @@
 package com.example.foodplannerapp.model.RemoteData;
 
+import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+
 import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
 import com.example.foodplannerapp.model.LocalDataSource.MealDao;
+
+import java.util.List;
 
 public class Repository implements RemoteServices , LocalServices {
 
@@ -36,14 +43,35 @@ public class Repository implements RemoteServices , LocalServices {
     }
 
     @Override
+    public LiveData<List<LocalMealPojo>> getAllFavMeals() {
+        MealDao dao = localData.getMealDao();
+        LiveData<List<LocalMealPojo>> favMeals = dao.getAllMeals();
+
+
+        return null;
+    }
+
+    @Override
     public void addMeal(LocalMealPojo mealPojo) {
         MealDao dao = localData.getMealDao();
-        dao.addMeal(mealPojo);
+        Log.d("TAG", "add This Meal: "+mealPojo.getMealId()+mealPojo.getMealName());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                dao.addMeal(mealPojo);
+            }
+        }).start();
     }
 
     @Override
     public void removeMeal(LocalMealPojo mealPojo) {
         MealDao dao = localData.getMealDao();
-        dao.removeMeal(mealPojo);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                dao.removeMeal(mealPojo);
+            }
+        }).start();
     }
 }

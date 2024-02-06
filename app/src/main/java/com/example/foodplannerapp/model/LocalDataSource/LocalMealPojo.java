@@ -5,8 +5,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "favorite_meal_table")
-public class LocalMealPojo {
+public class LocalMealPojo implements Serializable {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "mealId")
@@ -21,6 +23,7 @@ public class LocalMealPojo {
     public LocalMealPojo(@NonNull String mealId, String mealName, String imgUrl) {
         this.mealName = mealName;
         this.imgUrl = imgUrl;
+        this.mealId = mealId;
     }
 
     @NonNull

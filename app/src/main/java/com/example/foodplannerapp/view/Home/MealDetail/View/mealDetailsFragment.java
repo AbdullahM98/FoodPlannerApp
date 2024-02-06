@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,9 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView {
         favBtn = view.findViewById(R.id.favIconBtn);
         isFavorite = false ;
         myMeal = mealDetailsFragmentArgs.fromBundle(getArguments()).getMealPojo();
+        Log.d("TAG", "onCreateView: >>>>>>>>>>>>>>>>>>>>"+myMeal.getIdMeal());
         localMealPojo = new LocalMealPojo(myMeal.getIdMeal(),myMeal.getStrMeal(),myMeal.getStrMealThumb());
+        Log.d("TAG", "onCreateView: >>>>>>>>>>>>>>>>>>>>"+localMealPojo.getMealId());
         Glide.with(getActivity().getApplicationContext())
                 .load(myMeal.getStrMealThumb())
                 .centerCrop()
