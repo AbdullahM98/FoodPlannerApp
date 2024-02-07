@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FavoriteFragment extends Fragment implements IFavoriteView {
+public class FavoriteFragment extends Fragment  implements IFavoriteView , onRemoveClickListener {
     List<LocalMealPojo> meals;
     RecyclerView favRecyView;
     LinearLayoutManager layoutManager;
@@ -54,7 +54,7 @@ public class FavoriteFragment extends Fragment implements IFavoriteView {
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         favRecyView.setLayoutManager(layoutManager);
         meals = new ArrayList<>();
-        favAdapter = new FavAdapter(getActivity().getApplicationContext(),meals);
+        favAdapter = new FavAdapter(getActivity().getApplicationContext(),meals,this);
         favRecyView.setAdapter(favAdapter);
         favPresenter = new FavoritePresenter(Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())),this);
         favPresenter.getAllFav();
@@ -63,17 +63,17 @@ public class FavoriteFragment extends Fragment implements IFavoriteView {
 
     @Override
     public void updateFavList(LiveData<List<LocalMealPojo>> favMeals) {
-       if(favMeals != null ){
-           favMeals.observe(this, new Observer<List<LocalMealPojo>>() {
-               @Override
-               public void onChanged(List<LocalMealPojo> localMealPojos) {
-                   favAdapter.setList(localMealPojos);
-                   favAdapter.notifyDataSetChanged();
-               }
-           });
-       }else{
-           Log.d("TAG", "NoData : ");
-       }
+        if(favMeals != null ){
+            favMeals.observe(this, new Observer<List<LocalMealPojo>>() {
+                @Override
+                public void onChanged(List<LocalMealPojo> localMealPojos) {
+                    favAdapter.setList(localMealPojos);
+                    favAdapter.notifyDataSetChanged();
+                }
+            });
+        }else{
+            Log.d("TAG", "NoData : ");
+        }
     }
 
     @Override
@@ -92,5 +92,10 @@ public class FavoriteFragment extends Fragment implements IFavoriteView {
 
     public void setMeals(List<LocalMealPojo> meals) {
         this.meals = meals;
+    }
+
+    @Override
+    public void onRemoveFavClick(LocalMealPojo mealPojo) {
+        favPresenter.removeFromFav(mealPojo);
     }
 }

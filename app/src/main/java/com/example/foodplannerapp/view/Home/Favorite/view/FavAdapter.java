@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,17 +25,19 @@ import java.util.List;
 
 
 
-public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
+public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
     List<LocalMealPojo> meals;
     LocalMealPojo myMeal ;
     Context context;
 
     ViewHolder holder ;
+    onRemoveClickListener listener ;
 
 
-    public FavAdapter(Context context, List<LocalMealPojo> meals) {
+    public FavAdapter(Context context, List<LocalMealPojo> meals , onRemoveClickListener listener) {
         this.meals = meals;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -42,7 +47,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
         LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.fav_row,parent,false);
         holder = new ViewHolder(view);
-
+        Log.d("TAG", "onCreateViewHolder: "+meals.size());
         Log.d("TAG", "onCreateViewHolder: "+holder.toString());
         return holder;
     }
@@ -56,8 +61,12 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
         holder.removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                meals.remove(position);
+                meals.remove(myMeal);
+
+                Log.d("TAG", "onClick: "+position);
+                Log.d("TAG", "onClick: "+meals.get(position).getMealName());
                 notifyDataSetChanged();
+                listener.onRemoveFavClick(myMeal);
             }
         });
         Glide.with(context)
@@ -74,6 +83,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     public void setList(List<LocalMealPojo> meals){
         this.meals = meals;
     }
+
     public static class ViewHolder extends RecyclerView.ViewHolder{
         CardView fav_row ;
         ImageView imgView , removeBtn;
