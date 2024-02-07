@@ -1,11 +1,13 @@
 package com.example.foodplannerapp.view.Home.MealDetail.Presenter;
 
+import android.util.Log;
+
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
-import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.view.Home.MealDetail.View.IMealDetailsView;
+import com.example.foodplannerapp.view.Home.MealDetail.View.OnClickListener;
 
-public class MealDetailsPresenter implements IMealDetailsPresenter {
+public class MealDetailsPresenter implements IMealsPresenter {
 
     LocalServices repo ;
 
@@ -16,24 +18,16 @@ public class MealDetailsPresenter implements IMealDetailsPresenter {
         this.view = view;
     }
 
+
     @Override
-    public void onFavClick(LocalMealPojo mealPojo) {
+    public void addToFav(LocalMealPojo mealPojo) {
+        Log.d("TAG", "AddtoFav: ."+mealPojo.getMealId());
         repo.addMeal(mealPojo);
-        view.showToast("Added to Favorite");
     }
 
     @Override
-    public void onRemoveFavClick(LocalMealPojo mealPojo) {
+    public void removeFromFav(LocalMealPojo mealPojo) {
+
         repo.removeMeal(mealPojo);
-    }
-
-    @Override
-    public void onCalenderClick(LocalMealPojo mealPojo) {
-
-    }
-
-    @Override
-    public void onRemoveCalendereClick(LocalMealPojo mealPojo) {
-
     }
 }

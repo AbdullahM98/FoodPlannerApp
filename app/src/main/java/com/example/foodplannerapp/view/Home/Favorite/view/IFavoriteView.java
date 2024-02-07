@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface IFavoriteView {
     void updateFavList(LiveData<List<LocalMealPojo>> favMeals);
+    void deleteProducts(LocalMealPojo localMealPojo);
+    void showError(String error);
 }

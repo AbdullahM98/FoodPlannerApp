@@ -48,7 +48,7 @@ public class Repository implements RemoteServices , LocalServices {
         LiveData<List<LocalMealPojo>> favMeals = dao.getAllMeals();
 
 
-        return null;
+        return favMeals;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.foodplannerapp.view.Home.Favorite.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,12 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.category_row,parent,false);
+        View view = inflater.inflate(R.layout.fav_row,parent,false);
         holder = new ViewHolder(view);
+
+        Log.d("TAG", "onCreateViewHolder: "+holder.toString());
         return holder;
     }
 
@@ -49,7 +53,13 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         myMeal = meals.get(position);
         holder.titleTxt.setText(myMeal.getMealName());
-
+        holder.removeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                meals.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         Glide.with(context)
                 .load(myMeal.getImgUrl())
                 .centerCrop()
@@ -66,7 +76,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
         CardView fav_row ;
-        ImageView imgView ;
+        ImageView imgView , removeBtn;
         TextView titleTxt;
 
 
@@ -77,6 +87,7 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder> {
             fav_row = itemView.findViewById(R.id.favRow);
             titleTxt = itemView.findViewById(R.id.textViewMealName);
             imgView = itemView.findViewById(R.id.imageViewFav);
+            removeBtn = itemView.findViewById(R.id.removeImgView);
 
 
 

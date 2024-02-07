@@ -22,6 +22,7 @@ import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
 import com.example.foodplannerapp.model.RemoteData.Repository;
+import com.example.foodplannerapp.view.Communicator;
 import com.example.foodplannerapp.view.Home.home.presenter.IPresenter;
 import com.example.foodplannerapp.view.Home.home.presenter.Presenter;
 import com.example.foodplannerapp.view.Home.home.View.HomeFragmentDirections.ActionHomeFragment2ToMealDetailsFragment;
@@ -32,7 +33,7 @@ import java.util.List;
 public class HomeFragment extends Fragment implements HomeViewInterface {
     List<Category> categories ;
     RecyclerView recyclerView;
-
+    Communicator communicator;
     LinearLayoutManager layoutManager;
     HomeAdapter adapetr ;
 
@@ -58,6 +59,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         // Inflate the layout for this fragment
         Log.d("TAG", "onCreateView: ");
+
         categories = new ArrayList<>();
         mealCard = view.findViewById(R.id.mealCard);
         mealImg= view.findViewById(R.id.mealImg);

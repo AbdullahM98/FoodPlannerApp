@@ -73,6 +73,8 @@
             android:layout_marginStart="110dp"
             android:layout_marginTop="4dp"
             android:scaleType="fitXY"
+            app:riv_corner_radius_top_left="16dp"
+            app:riv_corner_radius_top_right="16dp"
             android:src="@drawable/ic_launcher_background"
             android:translationZ="2dp"
             app:layout_constraintStart_toStartOf="parent"

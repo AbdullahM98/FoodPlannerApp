@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.Favorite.Presenter;
+package com.example.foodplannerapp.view.Home.Favorite.presenter;
 
 import androidx.lifecycle.LiveData;
 
@@ -17,8 +17,8 @@ public class FavoritePresenter {
         this.iFavoriteView = iFavoriteView;
     }
 
-    public LiveData<List<LocalMealPojo>> getAllFav(){
-        return localServices.getAllFavMeals();
+    public void getAllFav(){
+      iFavoriteView.updateFavList( localServices.getAllFavMeals());
     }
 
 }

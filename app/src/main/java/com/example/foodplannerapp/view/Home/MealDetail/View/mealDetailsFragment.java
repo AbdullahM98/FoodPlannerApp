@@ -3,6 +3,7 @@ package com.example.foodplannerapp.view.Home.MealDetail.View;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,14 +20,15 @@ import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
 import com.example.foodplannerapp.model.RemoteData.Repository;
-import com.example.foodplannerapp.view.Home.MealDetail.Presenter.IMealDetailsPresenter;
+import com.example.foodplannerapp.view.Home.MealDetail.Presenter.IMealsPresenter;
 import com.example.foodplannerapp.view.Home.MealDetail.Presenter.MealDetailsPresenter;
-import com.example.foodplannerapp.view.Home.home.View.HomeFragment;
-import com.example.foodplannerapp.view.Home.home.presenter.Presenter;
+
+import java.util.List;
 
 
-public class mealDetailsFragment extends Fragment implements IMealDetailsView {
-    private IMealDetailsPresenter presenter ;
+public class mealDetailsFragment extends Fragment implements IMealDetailsView , OnClickListener {
+
+    private IMealsPresenter presenter ;
     private TextView mealName , mealCat , mealCountry , ingredientTxt , detailsTxt ;
     private  ImageView mealImg , favBtn ;
     private  MealPojo myMeal;
@@ -50,6 +52,7 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_meal_detail, container, false);
+
         mealName = view.findViewById(R.id.mealNameTxtView);
         mealCat = view.findViewById(R.id.mealCategoryTxtView);
         mealCountry = view.findViewById(R.id.countryTxtView);
@@ -77,10 +80,10 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView {
             @Override
             public void onClick(View view) {
                 if(!isFavorite){
-                    presenter.onFavClick(localMealPojo);
+                    presenter.addToFav(localMealPojo);
                     isFavorite = true ;
                 }else{
-                    presenter.onRemoveFavClick(localMealPojo);
+                    presenter.removeFromFav(localMealPojo);
                     isFavorite = false;
                 }
             }
@@ -92,7 +95,32 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView {
     }
 
     @Override
+    public void showData(LiveData<List<LocalMealPojo>> favMeals) {
+
+    }
+
+    @Override
     public void showToast(String msg) {
         Toast.makeText(getActivity().getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFavClick(LocalMealPojo mealPojo) {
+
+    }
+
+    @Override
+    public void onRemoveFavClick(LocalMealPojo mealPojo) {
+
+    }
+
+    @Override
+    public void onCalenderClick(LocalMealPojo mealPojo) {
+
+    }
+
+    @Override
+    public void onRemoveCalendereClick(LocalMealPojo mealPojo) {
+
     }
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
 import com.example.foodplannerapp.model.RemoteData.Repository;
-import com.example.foodplannerapp.view.Home.Favorite.Presenter.FavoritePresenter;
+import com.example.foodplannerapp.view.Home.Favorite.presenter.FavoritePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,11 +63,34 @@ public class FavoriteFragment extends Fragment implements IFavoriteView {
 
     @Override
     public void updateFavList(LiveData<List<LocalMealPojo>> favMeals) {
-        favMeals.observe(this, new Observer<List<LocalMealPojo>>() {
-            @Override
-            public void onChanged(List<LocalMealPojo> localMealPojos) {
-                favAdapter.setList(localMealPojos);
-            }
-        });
+       if(favMeals != null ){
+           favMeals.observe(this, new Observer<List<LocalMealPojo>>() {
+               @Override
+               public void onChanged(List<LocalMealPojo> localMealPojos) {
+                   favAdapter.setList(localMealPojos);
+                   favAdapter.notifyDataSetChanged();
+               }
+           });
+       }else{
+           Log.d("TAG", "NoData : ");
+       }
+    }
+
+    @Override
+    public void deleteProducts(LocalMealPojo localMealPojo) {
+
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    public List<LocalMealPojo> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(List<LocalMealPojo> meals) {
+        this.meals = meals;
     }
 }
