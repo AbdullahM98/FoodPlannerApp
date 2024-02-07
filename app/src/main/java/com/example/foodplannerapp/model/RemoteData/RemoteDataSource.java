@@ -6,6 +6,10 @@ import com.example.foodplannerapp.model.RootCategories;
 import com.example.foodplannerapp.model.RootMeal;
 import com.example.foodplannerapp.utils.Constants;
 
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,7 +24,8 @@ public class RemoteDataSource  {
     private RemoteDataSource(){
         Log.d("TAG", "RemoteDataSource: constructor Remote ");
         retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create()).build();
         apiServices = retrofit.create(ApiServices.class);
 
     }
@@ -33,43 +38,57 @@ public class RemoteDataSource  {
     public void getCategoryCall(NetworkCallBack networkCallBack){
 
 
-        Call<RootCategories> call = apiServices.getCategories();
-        call.enqueue(new Callback<RootCategories>() {
-            @Override
-            public void onResponse(Call<RootCategories> call, Response<RootCategories> response) {
-                networkCallBack.onSuccessResult(response.body().getCategories());
-                Log.d("TAG", "onResponse: "+response.body());
-            }
-
-
-
-            @Override
-            public void onFailure(Call<RootCategories> call, Throwable t) {
-                networkCallBack.onFailedResult(t.getMessage());
-                Log.d("TAG", "onFailure: "+t.getMessage());
-            }
+        Single<RootCategories> randomObservable = apiServices.getCategories();
+        randomObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
+            networkCallBack.onSuccessResult(item.getCategories());
+        },throwable -> {
+            networkCallBack.onFailedResult(throwable.getMessage());
         });
+
+//        call.enqueue(new Callback<RootCategories>() {
+//            @Override
+//            public void onResponse(Call<RootCategories> call, Response<RootCategories> response) {
+//                networkCallBack.onSuccessResult(response.body().getCategories());
+//                Log.d("TAG", "onResponse: "+response.body());
+//            }
+//
+//
+//
+//            @Override
+//            public void onFailure(Call<RootCategories> call, Throwable t) {
+//                networkCallBack.onFailedResult(t.getMessage());
+//                Log.d("TAG", "onFailure: "+t.getMessage());
+//            }
+//        });
 
     }
     public void getRandomMealCall(NetworkCallBack networkCallBack){
         Log.d("TAG", "getRandomMealCall: ");
-        Call<RootMeal> call = apiServices.getRandomMeal();
-        call.enqueue(new Callback<RootMeal>() {
-            @Override
-            public void onResponse(Call<RootMeal> call, Response<RootMeal> response) {
-                if(response.isSuccessful()){
-                    networkCallBack.onSuccessRandomMeal(response.body().getMeals());
-                    Log.d("TAG", "onResponse: "+ response.body().getMeals().get(0).getIdMeal());
-                }
-              //  Log.d("TAG", "onResponse: "+response.body().getMealList().get(0).strMeal);
-
-            }
-
-            @Override
-            public void onFailure(Call<RootMeal> call, Throwable t) {
-                Log.d("TAG", "onFailure: ");
-                networkCallBack.onFailedResult(t.getMessage());
-            }
+        Single<RootMeal> randomObservable = apiServices.getRandomMeal();
+        randomObservable.subscribeOn(Schedulers.io()).subscribe(item->{
+           networkCallBack.onSuccessRandomMeal(item.getMeals());
+        },throwable -> {
+            networkCallBack.onFailedResult(throwable.getMessage());
         });
+//        call.enqueue(new Callback<RootMeal>() {
+//            @Override
+//            public void onResponse(Call<RootMeal> call, Response<RootMeal> response) {
+//                if(response.isSuccessful()){
+//                    networkCallBack.onSuccessRandomMeal(response.body().getMeals());
+//                    Log.d("TAG", "onResponse: "+ response.body().getMeals().get(0).getIdMeal());
+//                }
+//              //  Log.d("TAG", "onResponse: "+response.body().getMealList().get(0).strMeal);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RootMeal> call, Throwable t) {
+//                Log.d("TAG", "onFailure: ");
+//                networkCallBack.onFailedResult(t.getMessage());
+//            }
+//        });
     }
+
+
+
 }

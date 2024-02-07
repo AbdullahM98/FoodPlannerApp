@@ -47,6 +47,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.7.2")
     implementation ("com.squareup.retrofit2:converter-gson:2.7.2")
     implementation ("com.squareup.okhttp3:okhttp:3.6.0")
+    implementation ("com.squareup.retrofit2:adapter-rxjava2:3.0.0")
     //glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
@@ -61,5 +62,9 @@ dependencies {
     implementation ("com.airbnb.android:lottie:3.4.0")
     //rounded
     implementation ("com.makeramen:roundedimageview:2.3.0")
+    // RX
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
+    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 
 }
