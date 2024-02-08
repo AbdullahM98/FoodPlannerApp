@@ -1,13 +1,9 @@
-package com.example.foodplannerapp.view.Home.Favorite.presenter;
-
-import androidx.lifecycle.LiveData;
+package com.example.foodplannerapp.Favorite.presenter;
 
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
-import com.example.foodplannerapp.view.Home.Favorite.Presenter.IFavoritePresenter;
-import com.example.foodplannerapp.view.Home.Favorite.view.IFavoriteView;
-
-import java.util.List;
+import com.example.foodplannerapp.Favorite.Presenter.IFavoritePresenter;
+import com.example.foodplannerapp.Favorite.view.IFavoriteView;
 
 public class FavoritePresenter implements IFavoritePresenter {
     LocalServices localServices ;

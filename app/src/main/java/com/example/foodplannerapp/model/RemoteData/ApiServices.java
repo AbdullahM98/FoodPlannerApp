@@ -21,4 +21,11 @@ public interface ApiServices {
 
   @GET("search.php/{query}")
   Single<RootMeal> searchMealByName(@Query("s") String mealName);
+  @GET("filter.php/{query}")
+  Single<RootMeal> filterByCategory(@Query("c") String categoryName );
+
+  @GET("filter.php/{query}")
+  Single<RootMeal> filterByCountry(@Query("a") String areaName );
+  @GET("filter.php/{query}")
+  Single<RootMeal> filterByIngredient(@Query("i") String categoryName );
 }

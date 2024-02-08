@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.Favorite.Presenter;
+package com.example.foodplannerapp.Favorite.Presenter;
 
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 

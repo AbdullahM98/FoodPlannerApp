@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.home.View;
+package com.example.foodplannerapp.home.View;
 
 import android.content.Context;
 import android.view.LayoutInflater;

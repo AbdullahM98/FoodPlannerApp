@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.MealDetail.View;
+package com.example.foodplannerapp.MealDetail.View;
 
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 

@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.MealDetail.View;
+package com.example.foodplannerapp.MealDetail.View;
 
 import android.os.Bundle;
 
@@ -19,9 +19,9 @@ import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
-import com.example.foodplannerapp.model.RemoteData.Repository;
-import com.example.foodplannerapp.view.Home.MealDetail.Presenter.IMealsPresenter;
-import com.example.foodplannerapp.view.Home.MealDetail.Presenter.MealDetailsPresenter;
+import com.example.foodplannerapp.model.Repositories.Repository;
+import com.example.foodplannerapp.MealDetail.Presenter.IMealsPresenter;
+import com.example.foodplannerapp.MealDetail.Presenter.MealDetailsPresenter;
 
 import java.util.List;
 

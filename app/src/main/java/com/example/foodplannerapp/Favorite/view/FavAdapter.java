@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.Favorite.view;
+package com.example.foodplannerapp.Favorite.view;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,16 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplannerapp.R;
-import com.example.foodplannerapp.model.Category;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
-import com.example.foodplannerapp.model.MealPojo;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Authentication.Presenter;
+package com.example.foodplannerapp.Authentication.Presenter;
 
 import android.content.Intent;
 import android.os.Bundle;

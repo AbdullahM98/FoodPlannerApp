@@ -1,11 +1,10 @@
-package com.example.foodplannerapp.view.Home.MealDetail.Presenter;
+package com.example.foodplannerapp.MealDetail.Presenter;
 
 import android.util.Log;
 
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
-import com.example.foodplannerapp.view.Home.MealDetail.View.IMealDetailsView;
-import com.example.foodplannerapp.view.Home.MealDetail.View.OnClickListener;
+import com.example.foodplannerapp.MealDetail.View.IMealDetailsView;
 
 public class MealDetailsPresenter implements IMealsPresenter {
 

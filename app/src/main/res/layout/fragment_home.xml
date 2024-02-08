@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="700dp"
 
-        tools:context=".view.Home.home.View.HomeFragment">
+        tools:context=".homeomeFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/topGuideline"
@@ -173,4 +173,3 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-

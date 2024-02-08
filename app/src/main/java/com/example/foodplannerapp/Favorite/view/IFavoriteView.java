@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.Favorite.view;
+package com.example.foodplannerapp.Favorite.view;
 
 import androidx.lifecycle.LiveData;
 

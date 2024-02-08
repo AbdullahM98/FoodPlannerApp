@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Home.MealDetail.View.mealDetailsFragment">
+    tools:context=".MealDetail.View.mealDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/mealDetailFragment"
@@ -183,9 +183,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
-
-
-
-
-
-

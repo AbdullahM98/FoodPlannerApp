@@ -5,15 +5,87 @@
     android:id="@+id/searchFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Home.search.view.SearchFragment">
+    android:backgroundTint="@color/white"
+    tools:context=".search.view.SearchFragment">
 
 
 
-    <SearchView
+   <androidx.cardview.widget.CardView
+       android:id="@+id/searchBar"
+       android:layout_width="match_parent"
+       android:layout_height="70dp"
 
-        android:id="@+id/searchView"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:elevation="4dp">
+       <EditText
+
+           android:id="@+id/searchView"
+           android:layout_width="match_parent"
+           android:layout_height="40dp"
+           android:layout_marginTop="15dp"
+           android:layout_marginStart="10dp"
+           android:layout_marginEnd="10dp"
+           android:translationZ="2dp"
+           android:inputType="text"
+
+           android:background="@color/white"
+          />
+   </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/filterBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/searchBar"
+        app:layout_constraintEnd_toEndOf="parent"
+
+
+
+        android:layout_marginTop="10dp">
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:chipSpacing="5dp"
+            android:layout_margin="10dp"
+            >
+            <com.google.android.material.chip.Chip
+                android:id="@+id/countryFilterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Country"
+
+                app:chipIcon="@drawable/down_arrow_svgrepo_com"
+                app:checkedIconTint="@color/black"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/ingredientFilterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingredient"
+                app:chipIcon="@drawable/down_arrow_svgrepo_com"
+                app:checkedIconTint="@color/black"
+                />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/categoryFilterChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                app:chipIcon="@drawable/down_arrow_svgrepo_com"
+                app:checkedIconTint="@color/black"
+                />
+        </com.google.android.material.chip.ChipGroup>
+    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchRecyView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/filterBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

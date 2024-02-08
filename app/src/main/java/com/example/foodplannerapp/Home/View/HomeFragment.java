@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.home.View;
+package com.example.foodplannerapp.Home.View;
 
 import android.os.Bundle;
 
@@ -15,17 +15,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.foodplannerapp.R;
+
 import com.example.foodplannerapp.model.Category;
 import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
-import com.example.foodplannerapp.model.RemoteData.Repository;
+import com.example.foodplannerapp.model.Repositories.Repository;
 import com.example.foodplannerapp.view.Communicator;
-import com.example.foodplannerapp.view.Home.home.presenter.IPresenter;
-import com.example.foodplannerapp.view.Home.home.presenter.Presenter;
-import com.example.foodplannerapp.view.Home.home.View.HomeFragmentDirections.ActionHomeFragment2ToMealDetailsFragment;
+import com.example.foodplannerapp.home.View.HomeViewInterface;
+import com.example.foodplannerapp.home.View.HomeAdapter;
+import com.example.foodplannerapp.home.presenter.IPresenter;
+import com.example.foodplannerapp.Home.presenter.Presenter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +76,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
         mealCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           ActionHomeFragment2ToMealDetailsFragment action = HomeFragmentDirections.actionHomeFragment2ToMealDetailsFragment(mealPojo);
+                HomeFragmentDirections.ActionHomeFragment2ToMealDetailsFragment action = HomeFragmentDirections.actionHomeFragment2ToMealDetailsFragment(mealPojo);
               //  action.setMealPojo(mealPojo);
                 Navigation.findNavController(view).navigate(action);
             }

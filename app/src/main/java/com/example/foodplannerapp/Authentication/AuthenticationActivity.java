@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Authentication;
+package com.example.foodplannerapp.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -16,8 +16,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.foodplannerapp.R;
-import com.example.foodplannerapp.view.Authentication.Presenter.AuthPresenter;
-import com.example.foodplannerapp.view.Authentication.Presenter.SignInFragment;
+import com.example.foodplannerapp.Authentication.Presenter.AuthPresenter;
+import com.example.foodplannerapp.Authentication.Presenter.SignInFragment;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AuthenticationActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Authentication.Presenter;
+package com.example.foodplannerapp.Authentication.Presenter;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -12,10 +12,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+import com.example.foodplannerapp.view.Authentication.Presenter.onClickListener;
+import com.example.foodplannerapp.view.Authentication.Presenter.IAuthResponse;
 import java.util.concurrent.Executor;
 
-public class AuthPresenter implements onClickListener , IAuthResponse{
+public class AuthPresenter implements onClickListener, IAuthResponse {
 
     IAuthRepo authRepo ;
      IAuthView iAuthView;

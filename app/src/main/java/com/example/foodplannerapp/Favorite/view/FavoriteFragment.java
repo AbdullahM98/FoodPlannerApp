@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.view.Home.Favorite.view;
+package com.example.foodplannerapp.Favorite.view;
 
 import android.os.Bundle;
 
@@ -17,8 +17,8 @@ import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
-import com.example.foodplannerapp.model.RemoteData.Repository;
-import com.example.foodplannerapp.view.Home.Favorite.presenter.FavoritePresenter;
+import com.example.foodplannerapp.model.Repositories.Repository;
+import com.example.foodplannerapp.Favorite.presenter.FavoritePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
