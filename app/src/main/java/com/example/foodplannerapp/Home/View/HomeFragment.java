@@ -97,11 +97,11 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
     @Override
     public void showMeal(List<MealPojo> listOfdata) {
                    mealPojo =  listOfdata.get(0);
-           Glide.with(getActivity().getApplicationContext())
-                   .load(mealPojo.getStrMealThumb())
-                  .centerCrop()
-                    .placeholder(R.drawable.ic_launcher_foreground)
-                  .into(mealImg);
+//           Glide.with(getActivity().getApplicationContext())
+//                   .load(mealPojo.getStrMealThumb())
+//                  .centerCrop()
+//                    .placeholder(R.drawable.ic_launcher_foreground)
+//                  .into(mealImg);
     }
 
 
