@@ -43,6 +43,11 @@ public class Repository implements RemoteServices , LocalServices {
     }
 
     @Override
+    public void searchMealByName(NetworkCallBack networkCallBack, String mealName) {
+        remoteData.searchMealByName(networkCallBack,mealName);
+    }
+
+    @Override
     public LiveData<List<LocalMealPojo>> getAllFavMeals() {
         MealDao dao = localData.getMealDao();
         LiveData<List<LocalMealPojo>> favMeals = dao.getAllMeals();
@@ -74,4 +79,5 @@ public class Repository implements RemoteServices , LocalServices {
             }
         }).start();
     }
+
 }

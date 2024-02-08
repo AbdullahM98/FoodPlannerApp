@@ -9,5 +9,6 @@ import java.util.List;
 public interface NetworkCallBack {
    void onSuccessResult(List<Category> obj);
    void onSuccessRandomMeal(ArrayList<MealPojo> meals);
+   void onSearchSucessResult(List<MealPojo> searchResultMeals);
    void onFailedResult(String errorMsg);
 }

@@ -20,5 +20,5 @@ public interface ApiServices {
   Single<RootMeal> getRandomMeal();
 
   @GET("search.php/{query}")
-  Single<List<MealPojo>> searchMealByName(@Query("s") String mealName);
+  Single<RootMeal> searchMealByName(@Query("s") String mealName);
 }

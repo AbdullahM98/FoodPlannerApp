@@ -2,9 +2,12 @@ package com.example.foodplannerapp.model.RemoteData;
 
 import android.util.Log;
 
+import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RootCategories;
 import com.example.foodplannerapp.model.RootMeal;
 import com.example.foodplannerapp.utils.Constants;
+
+import java.util.List;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -65,7 +68,7 @@ public class RemoteDataSource  {
     public void getRandomMealCall(NetworkCallBack networkCallBack){
         Log.d("TAG", "getRandomMealCall: ");
         Single<RootMeal> randomObservable = apiServices.getRandomMeal();
-        randomObservable.subscribeOn(Schedulers.io()).subscribe(item->{
+        randomObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
            networkCallBack.onSuccessRandomMeal(item.getMeals());
         },throwable -> {
             networkCallBack.onFailedResult(throwable.getMessage());
@@ -89,6 +92,15 @@ public class RemoteDataSource  {
 //        });
     }
 
-
+    public void searchMealByName(NetworkCallBack networkCallBack , String mealSearchName){
+        Single<RootMeal> searchObservable = apiServices.searchMealByName(mealSearchName);
+        searchObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                item->{
+                    networkCallBack.onSearchSucessResult(item.getMeals());
+                },throwable -> {
+                    networkCallBack.onFailedResult(throwable.getMessage());
+                }
+        );
+    }
 
 }
