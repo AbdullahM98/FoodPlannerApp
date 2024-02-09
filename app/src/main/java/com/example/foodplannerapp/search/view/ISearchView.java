@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ISearchView {
     void updateList(List<MealPojo> searchResultMeals);
+    void updateSingleMeal(MealPojo mealPojo);
     void showError(String error);
 }

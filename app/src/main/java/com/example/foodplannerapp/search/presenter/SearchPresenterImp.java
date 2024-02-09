@@ -52,6 +52,11 @@ public class SearchPresenterImp implements ISearchPresenter , ISearchCallBack {
     }
 
     @Override
+    public void onGetMealById(List<MealPojo> mealPojos) {
+        view.updateSingleMeal(mealPojos.get(0));
+    }
+
+    @Override
     public void onFailure(String msg) {
         view.showError(msg);
     }

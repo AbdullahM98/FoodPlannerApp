@@ -8,6 +8,7 @@ import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
 import com.example.foodplannerapp.model.LocalDataSource.MealDao;
+import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class Repository implements RemoteServices, LocalServices ,ISearchRemoteS
     private static Repository repo ;
     private RemoteDataSource remoteData;
     private LocalDataSource localData;
+
 
     private Repository(RemoteDataSource remoteData , LocalDataSource localData) {
 

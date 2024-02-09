@@ -24,10 +24,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         MealPojo mealPojo ;
         Context context;
         ViewHolder holder;
+        OnItemClickListener listener;
 
-        public SearchAdapter(Context context, List<MealPojo> meals) {
+        public SearchAdapter(Context context, List<MealPojo> meals ,OnItemClickListener listener) {
             this.meals = meals;
             this.context = context;
+            this.listener = listener;
         }
 
         @NonNull
@@ -69,7 +71,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 searchItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        listener.getMealById(mealPojo.getIdMeal());
                     }
                 });
 

@@ -14,7 +14,7 @@
        android:id="@+id/searchBar"
        android:layout_width="match_parent"
        android:layout_height="70dp"
-
+       android:backgroundTint="@color/orange"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
@@ -43,11 +43,11 @@
 
 
 
-        android:layout_marginTop="10dp">
+        android:backgroundTint="@color/orange">
         <com.google.android.material.chip.ChipGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:chipSpacing="5dp"
+
             android:layout_margin="10dp"
             >
             <com.google.android.material.chip.Chip

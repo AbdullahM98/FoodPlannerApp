@@ -28,4 +28,6 @@ public interface ApiServices {
   Single<RootMeal> filterByCountry(@Query("a") String areaName );
   @GET("filter.php/{query}")
   Single<RootMeal> filterByIngredient(@Query("i") String categoryName );
+  @GET("lookup.php/{query}")
+  Single<RootMeal> getMealById(@Query("i") String MealName );
 }

@@ -2,11 +2,14 @@ package com.example.foodplannerapp.model.RemoteData;
 
 import android.util.Log;
 
+import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.Repositories.ISearchCallBack;
 import com.example.foodplannerapp.model.Repositories.NetworkCallBack;
 import com.example.foodplannerapp.model.RootCategories;
 import com.example.foodplannerapp.model.RootMeal;
 import com.example.foodplannerapp.utils.Constants;
+
+import java.util.List;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -19,6 +22,7 @@ public class RemoteDataSource  {
 
     private Retrofit retrofit;
     private ApiServices apiServices;
+    List<MealPojo> cachedMealsList;
     private static RemoteDataSource instance;
     private RemoteDataSource(){
         Log.d("TAG", "RemoteDataSource: constructor Remote ");
@@ -121,6 +125,15 @@ public class RemoteDataSource  {
     public void filterMealByCountry(ISearchCallBack searchCallBack, String filterName){
         Single<RootMeal> filterObservable = apiServices.filterByCountry(filterName);
         filterObservable.filter(query->!filterName.isEmpty()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(item->{
+                    searchCallBack.onSearchSucessResult(item.getMeals());
+                },throwable -> {
+                    searchCallBack.onFailure(throwable.getMessage());
+                });
+    }
+    public void getMealByID(ISearchCallBack searchCallBack , String id){
+        Single<RootMeal> filterObservable = apiServices.filterByCountry(id);
+        filterObservable.filter(query->!id.isEmpty()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(item->{
                     searchCallBack.onSearchSucessResult(item.getMeals());
                 },throwable -> {
