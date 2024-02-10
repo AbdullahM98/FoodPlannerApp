@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
+import com.example.foodplannerapp.model.MealPojo;
 
 import java.util.List;
 
@@ -56,12 +57,13 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
         holder.removeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                myMeal = meals.get(position);
                 meals.remove(myMeal);
 
-                Log.d("TAG", "onClick: "+position);
-                Log.d("TAG", "onClick: "+meals.get(position).getMealName());
+
                 notifyDataSetChanged();
-                listener.onRemoveFavClick(myMeal);
+                MealPojo meal = (MealPojo) myMeal;
+                listener.onRemoveFavClick(meal);
             }
         });
         Glide.with(context)

@@ -132,10 +132,13 @@ public class RemoteDataSource  {
                 });
     }
     public void getMealByID(ISearchCallBack searchCallBack , String id){
-        Single<RootMeal> filterObservable = apiServices.filterByCountry(id);
+        Log.d("TAGG", "getMealByID: "+id);
+        Single<RootMeal> filterObservable = apiServices.getMealById(id);
         filterObservable.filter(query->!id.isEmpty()).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(item->{
-                    searchCallBack.onSearchSucessResult(item.getMeals());
+                    Log.d("TAGG", "getMealByID: "+item.getMeals().size());
+                    searchCallBack.onGetMealByIdSuccess(item.getMeals());
+
                 },throwable -> {
                     searchCallBack.onFailure(throwable.getMessage());
                 });

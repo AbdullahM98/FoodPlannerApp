@@ -2,7 +2,9 @@ package com.example.foodplannerapp.search.view;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,11 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import android.widget.Toast;
 
 import com.example.foodplannerapp.R;
@@ -42,14 +47,13 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
     List<MealPojo> searchResults ;
     RecyclerView searchRecyView ;
     ISearchPresenter presenter;
-    EditText searchView ;
+    SearchView searchView ;
     Chip categoryFilterChip , ingFilterChip , countryFilterChip;
     BottomSheetDialog bottomSheetDialog;
     Button filterBtn;
     List<String> filterCountries ;
     List<String> filterCategories ;
     List<String> filterIngredients ;
-
 
 
     MealPojo mealPojo;
@@ -71,8 +75,25 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
         searchResults = new ArrayList<>();
         mealPojo = new MealPojo();
         adapter = new SearchAdapter(this.getContext(),searchResults,this);
+
         manager = new LinearLayoutManager(this.getContext());
         searchRecyView = view.findViewById(R.id.searchRecyView);
+        searchView = view.findViewById(R.id.searchView);
+        searchView.clearFocus();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                presenter.searchMealByName(newText);
+                return true;
+            }
+        });
         countryFilterChip = view.findViewById(R.id.countryFilterChip);
         categoryFilterChip = view.findViewById(R.id.categoryFilterChip);
         ingFilterChip = view.findViewById(R.id.ingredientFilterChip);
@@ -82,7 +103,7 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
         searchRecyView.setLayoutManager(manager);
         searchRecyView.setAdapter(adapter);
         presenter = new SearchPresenterImp(this, Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(this.getContext())));
-        searchView = view.findViewById(R.id.searchView);
+
         presenter.searchMealByName("ab");
 
         bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
@@ -107,22 +128,22 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
                 bottomSheetDialog.show();
             }
         });
-        searchView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                presenter.searchMealByName(editable.toString());
-            }
-        });
+//        searchView.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//                presenter.searchMealByName(editable.toString());
+//            }
+//        });
 
 
         // Inflate the layout for this fragment
@@ -138,8 +159,9 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
 
     @Override
     public void updateSingleMeal(MealPojo mealPojoo) {
-        mealPojo = mealPojoo;
-
+        Log.d("TAGG", "updateSingleMeal: "+mealPojoo.getIdMeal());
+        SearchFragmentDirections.ActionSearchFragment2ToMealDetailsFragment action = SearchFragmentDirections.actionSearchFragment2ToMealDetailsFragment(mealPojoo);
+        Navigation.findNavController(searchView).navigate(action);
     }
 
     @Override
@@ -208,6 +230,7 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
 
     @Override
     public void getMealById(String mealId) {
-
+        Log.d("TAGG", "yaPresenter getMealById: "+mealId);
+        presenter.getMealById(mealId);
     }
 }

@@ -5,10 +5,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.foodplannerapp.model.MealPojo;
+
 import java.io.Serializable;
 
-@Entity(tableName = "favorite_meal_table")
-public class LocalMealPojo implements Serializable {
+@Entity(tableName = "meal_table")
+public class LocalMealPojo extends MealPojo implements Serializable {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "mealId")

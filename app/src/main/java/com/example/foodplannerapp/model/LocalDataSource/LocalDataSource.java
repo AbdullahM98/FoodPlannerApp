@@ -7,7 +7,13 @@ import android.util.Log;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-@Database(entities = {LocalMealPojo.class},version = 1)
+
+import com.example.foodplannerapp.model.LocalCalenderPojo;
+import com.example.foodplannerapp.model.LocalFavoritesPojo;
+import com.example.foodplannerapp.model.MealPojo;
+
+@Database(entities = {LocalMealPojo.class,
+        LocalFavoritesPojo.class, LocalCalenderPojo.class},version = 1)
 public abstract class LocalDataSource extends RoomDatabase {
     public abstract MealDao getMealDao();
     private static LocalDataSource instance = null ;

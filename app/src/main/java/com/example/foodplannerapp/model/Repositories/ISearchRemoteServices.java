@@ -13,4 +13,5 @@ public interface ISearchRemoteServices {
     void filterByCountry( ISearchCallBack searchCallBack,String areaName );
 
     void filterByIngredient(ISearchCallBack searchCallBack, String categoryName );
+    void getMealById(ISearchCallBack searchCallBack , String mealId);
 }

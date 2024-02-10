@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.foodplannerapp.model.Category;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.Repositories.NetworkCallBack;
-import com.example.foodplannerapp.model.Repositories.RemoteServices;
+import com.example.foodplannerapp.model.Repositories.IHomeRemoteServices;
 import com.example.foodplannerapp.home.View.HomeViewInterface;
 import  com.example.foodplannerapp.home.presenter.IPresenter;
 import java.util.ArrayList;
@@ -13,9 +13,9 @@ import java.util.List;
 
 public class Presenter implements NetworkCallBack ,IPresenter {
     com.example.foodplannerapp.home.View.HomeViewInterface categoryView;
-    RemoteServices repo ;
+    IHomeRemoteServices repo ;
 
-    public Presenter(HomeViewInterface categoryView , RemoteServices repo) {
+    public Presenter(HomeViewInterface categoryView , IHomeRemoteServices repo) {
 
         this.repo = repo;
         this.categoryView = categoryView;

@@ -5,6 +5,6 @@ public interface ISearchPresenter {
     void filterMealByCategory(String mealName);
     void filterMealByIngredient(String mealName);
     void filterMealByCountry(String mealName);
-
+    void getMealById(String mealId);
 
 }

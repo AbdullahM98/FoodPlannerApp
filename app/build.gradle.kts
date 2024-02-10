@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("androidx.navigation.safeargs")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -66,5 +67,8 @@ dependencies {
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
     implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
     implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
-
+    implementation("androidx.room:room-rxjava3:$2.6.1")
+    // fireStore
+   implementation("com.google.firebase:firebase-firestore:24.10.2")
+    implementation("com.google.firebase:firebase-database:20.3.0")
 }

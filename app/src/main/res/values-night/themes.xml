@@ -3,5 +3,7 @@
     <style name="Base.Theme.FoodPlannerApp" parent="Theme.Material3.DayNight">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorSecondary">@color/darkGrey</item>
     </style>
 </resources>

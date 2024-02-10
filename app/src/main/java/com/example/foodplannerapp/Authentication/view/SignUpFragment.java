@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.Authentication.Presenter;
+package com.example.foodplannerapp.Authentication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.foodplannerapp.Authentication.Presenter.AuthPresenter;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.Authentication.AuthRepository;
-import com.example.foodplannerapp.view.Authentication.IAuthView;
+import com.example.foodplannerapp.Authentication.IAuthView;
 import com.example.foodplannerapp.view.MainActivity;
 
 
@@ -46,7 +47,8 @@ public class SignUpFragment extends Fragment implements IAuthView {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email, pass ;
+                String email, pass , userName ;
+                userName = String.valueOf(nameEditTxt.getText());
                 email = String.valueOf(emailEditTxt.getText());
                 pass = String.valueOf(passwordEditTxt.getText());
                 if(TextUtils.isEmpty(email)){
@@ -57,7 +59,7 @@ public class SignUpFragment extends Fragment implements IAuthView {
                     Toast.makeText(getActivity().getApplicationContext(), "You must enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                presenter.onRegisterClick( email ,  pass);
+                presenter.onRegisterClick( email ,  pass , userName);
             }
         });
         // Inflate the layout for this fragment
@@ -71,8 +73,10 @@ public class SignUpFragment extends Fragment implements IAuthView {
     }
 
     @Override
-    public void updateUi() {
+    public void updateUi(String userId) {
+
         intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 }

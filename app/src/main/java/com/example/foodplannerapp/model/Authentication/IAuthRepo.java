@@ -1,6 +1,6 @@
 package com.example.foodplannerapp.model.Authentication;
 
-import com.example.foodplannerapp.view.Authentication.Presenter.IAuthResponse;
+import com.example.foodplannerapp.Authentication.Presenter.IAuthResponse;
 
 public interface IAuthRepo {
     void registerUser(IAuthResponse iAuthResponse, String email , String Password);

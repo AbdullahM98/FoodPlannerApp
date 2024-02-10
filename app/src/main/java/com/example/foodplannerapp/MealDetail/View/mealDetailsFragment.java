@@ -2,6 +2,7 @@ package com.example.foodplannerapp.MealDetail.View;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,10 +21,13 @@ import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
+import com.example.foodplannerapp.model.Repositories.CalenderRepo;
+import com.example.foodplannerapp.model.Repositories.FavoriteRepo;
 import com.example.foodplannerapp.model.Repositories.Repository;
 import com.example.foodplannerapp.MealDetail.Presenter.IMealsPresenter;
 import com.example.foodplannerapp.MealDetail.Presenter.MealDetailsPresenter;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -30,15 +35,16 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
 
     private IMealsPresenter presenter ;
     private TextView mealName , mealCat , mealCountry , ingredientTxt , detailsTxt ;
-    private  ImageView mealImg , favBtn ;
+    private  ImageView mealImg , favBtn , calenderBtn;
     private  MealPojo myMeal;
     private LocalMealPojo localMealPojo;
 
-    private boolean isFavorite ;
-
+    private boolean isFavorite , isCalenderVisible ;
+    private CalendarView calender;
+    private String dateSelectedStr;
 
     public mealDetailsFragment() {
-        // Required empty public constructor
+        // Required empty public constructors
     }
 
 
@@ -60,7 +66,11 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
         ingredientTxt = view.findViewById(R.id.ingredientTxt);
         detailsTxt = view.findViewById(R.id.descTxt);
         favBtn = view.findViewById(R.id.favIconBtn);
+        calenderBtn = view.findViewById(R.id.calenderIconBtn);
+        calender =view.findViewById(R.id.calendarView);
+        calender.setVisibility(View.INVISIBLE);
         isFavorite = false ;
+        isCalenderVisible = false;
         myMeal = mealDetailsFragmentArgs.fromBundle(getArguments()).getMealPojo();
         Log.d("TAG", "onCreateView: >>>>>>>>>>>>>>>>>>>>"+myMeal.getIdMeal());
         localMealPojo = new LocalMealPojo(myMeal.getIdMeal(),myMeal.getStrMeal(),myMeal.getStrMealThumb());
@@ -75,21 +85,40 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
         mealCountry.setText(myMeal.getStrArea());
         ingredientTxt.setText("Description");
         detailsTxt.setText(myMeal.getStrInstructions());
-        presenter = new MealDetailsPresenter(Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())),this);
+        presenter = new MealDetailsPresenter(Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())),this, CalenderRepo.getInstance(), FavoriteRepo.getInstance());
         favBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!isFavorite){
-                    presenter.addToFav(localMealPojo);
+                    presenter.addToFav(myMeal);
+
                     isFavorite = true ;
                 }else{
-                    presenter.removeFromFav(localMealPojo);
+                    presenter.removeFromFav(myMeal);
                     isFavorite = false;
                 }
             }
         });
 
-
+        calenderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if(!isCalenderVisible){
+                   isCalenderVisible = true;
+                   calender.setVisibility(View.VISIBLE);
+               }else {
+                   isCalenderVisible = false;
+                   calender.setVisibility(View.INVISIBLE);
+               }
+            }
+        });
+        calender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+                dateSelectedStr = Integer.toString(i)+Integer.toString(i1+1)+Integer.toString(i2);
+                presenter.addMealToCalender(dateSelectedStr,myMeal);
+            }
+        });
 
         return view ;
     }

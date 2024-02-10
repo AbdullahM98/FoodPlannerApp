@@ -6,8 +6,7 @@ import java.io.Serializable;
 
 public class MealPojo implements Serializable {
 
-	@SerializedName("strImageSource")
-	private Object strImageSource;
+
 
 	@SerializedName("strIngredient10")
 	private String strIngredient10;
@@ -42,8 +41,7 @@ public class MealPojo implements Serializable {
 	@SerializedName("strArea")
 	private String strArea;
 
-	@SerializedName("strCreativeCommonsConfirmed")
-	private Object strCreativeCommonsConfirmed;
+
 
 	@SerializedName("strIngredient19")
 	private String strIngredient19;
@@ -111,11 +109,7 @@ public class MealPojo implements Serializable {
 	@SerializedName("strMeasure11")
 	private String strMeasure11;
 
-	@SerializedName("dateModified")
-	private Object dateModified;
 
-	@SerializedName("strDrinkAlternate")
-	private Object strDrinkAlternate;
 
 	@SerializedName("strSource")
 	private String strSource;
@@ -165,9 +159,7 @@ public class MealPojo implements Serializable {
 	@SerializedName("strMeasure15")
 	private String strMeasure15;
 
-	public Object getStrImageSource(){
-		return strImageSource;
-	}
+
 
 	public String getStrIngredient10(){
 		return strIngredient10;
@@ -213,9 +205,7 @@ public class MealPojo implements Serializable {
 		return strArea;
 	}
 
-	public Object getStrCreativeCommonsConfirmed(){
-		return strCreativeCommonsConfirmed;
-	}
+
 
 	public String getStrIngredient19(){
 		return strIngredient19;
@@ -305,13 +295,7 @@ public class MealPojo implements Serializable {
 		return strMeasure11;
 	}
 
-	public Object getDateModified(){
-		return dateModified;
-	}
 
-	public Object getStrDrinkAlternate(){
-		return strDrinkAlternate;
-	}
 
 	public String getStrSource(){
 		return strSource;
@@ -377,9 +361,7 @@ public class MealPojo implements Serializable {
 		return strMeasure15;
 	}
 
-	public void setStrImageSource(Object strImageSource) {
-		this.strImageSource = strImageSource;
-	}
+
 
 	public void setStrIngredient10(String strIngredient10) {
 		this.strIngredient10 = strIngredient10;
@@ -425,9 +407,6 @@ public class MealPojo implements Serializable {
 		this.strArea = strArea;
 	}
 
-	public void setStrCreativeCommonsConfirmed(Object strCreativeCommonsConfirmed) {
-		this.strCreativeCommonsConfirmed = strCreativeCommonsConfirmed;
-	}
 
 	public void setStrIngredient19(String strIngredient19) {
 		this.strIngredient19 = strIngredient19;
@@ -517,13 +496,7 @@ public class MealPojo implements Serializable {
 		this.strMeasure11 = strMeasure11;
 	}
 
-	public void setDateModified(Object dateModified) {
-		this.dateModified = dateModified;
-	}
 
-	public void setStrDrinkAlternate(Object strDrinkAlternate) {
-		this.strDrinkAlternate = strDrinkAlternate;
-	}
 
 	public void setStrSource(String strSource) {
 		this.strSource = strSource;

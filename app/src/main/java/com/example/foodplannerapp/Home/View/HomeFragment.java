@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.foodplannerapp.Home.presenter.Presenter;
 import com.example.foodplannerapp.R;
 
 import com.example.foodplannerapp.model.Category;
@@ -26,7 +27,7 @@ import com.example.foodplannerapp.view.Communicator;
 import com.example.foodplannerapp.home.View.HomeViewInterface;
 import com.example.foodplannerapp.home.View.HomeAdapter;
 import com.example.foodplannerapp.home.presenter.IPresenter;
-import com.example.foodplannerapp.Home.presenter.Presenter;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
     CardView mealCard;
     ImageView mealImg;
     MealPojo mealPojo;
-
+    String userID ;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -81,7 +82,12 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
                 Navigation.findNavController(view).navigate(action);
             }
         });
-
+        Bundle extras = getActivity().getIntent().getExtras();
+        if (extras != null) {
+            userID = extras.getString("key");
+            Log.d("TAGG", "onCreateView: "+userID);
+            //The key argument here must match that used in the other activity
+        }
         return view;
     }
 

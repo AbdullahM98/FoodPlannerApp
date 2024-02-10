@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.Authentication.Presenter;
+package com.example.foodplannerapp.Authentication.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +17,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodplannerapp.Authentication.Presenter.AuthPresenter;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.Authentication.AuthRepository;
-import com.example.foodplannerapp.view.Authentication.IAuthView;
+import com.example.foodplannerapp.Authentication.IAuthView;
 import com.example.foodplannerapp.view.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -91,8 +92,9 @@ public class SignInFragment extends Fragment implements IAuthView {
     }
 
     @Override
-    public void updateUi() {
+    public void updateUi(String userId) {
         intent = new Intent(getActivity(), MainActivity.class);
+        intent.putExtra("userId",userId);
         startActivity(intent);
     }
 }

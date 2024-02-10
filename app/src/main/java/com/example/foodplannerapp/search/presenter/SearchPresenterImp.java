@@ -1,5 +1,7 @@
 package com.example.foodplannerapp.search.presenter;
 
+import android.util.Log;
+
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.Repositories.ISearchCallBack;
 import com.example.foodplannerapp.model.Repositories.ISearchRemoteServices;
@@ -25,7 +27,10 @@ public class SearchPresenterImp implements ISearchPresenter , ISearchCallBack {
     public void setSearchResultMeals(List<MealPojo> searchResultMeals) {
         this.searchResultMeals = searchResultMeals;
     }
-
+    @Override
+    public void getMealById(String mealId) {
+        repo.getMealById(this,mealId);
+    }
     @Override
     public void searchMealByName(String mealName) {
         repo.searchMealByName(this,mealName);
@@ -52,7 +57,8 @@ public class SearchPresenterImp implements ISearchPresenter , ISearchCallBack {
     }
 
     @Override
-    public void onGetMealById(List<MealPojo> mealPojos) {
+    public void onGetMealByIdSuccess(List<MealPojo> mealPojos) {
+        Log.d("TAGG", "onGetMealByIdSuccess: ");
         view.updateSingleMeal(mealPojos.get(0));
     }
 

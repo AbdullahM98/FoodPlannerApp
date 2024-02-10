@@ -2,65 +2,88 @@ package com.example.foodplannerapp.calender.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 
 import com.example.foodplannerapp.R;
+import com.example.foodplannerapp.calender.Presenter.CalenderPresenter;
+import com.example.foodplannerapp.calender.Presenter.ICalenderPresenter;
+import com.example.foodplannerapp.model.LocalCalenderPojo;
+import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
+import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
+import com.example.foodplannerapp.model.Repositories.Repository;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CalenderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class CalenderFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class CalenderFragment extends Fragment  implements ICalenderView , onRemoveFromCalender{
+    CalenderAdapter adapter;
+    RecyclerView recyclerView ;
+    LinearLayoutManager layoutManager ;
+    CalendarView calender ;
+
+    ICalenderPresenter presenter ;
+    List<LocalCalenderPojo> calenderPojos;
 
     public CalenderFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CalenderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CalenderFragment newInstance(String param1, String param2) {
-        CalenderFragment fragment = new CalenderFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calender, container, false);
+       View view =  inflater.inflate(R.layout.fragment_calender, container, false);
+       presenter = new CalenderPresenter(Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(this.getContext())),this );
+       calender = view.findViewById(R.id.calendarView2);
+       recyclerView = view.findViewById(R.id.recyView);
+       calenderPojos = new ArrayList<>();
+       adapter = new CalenderAdapter(this.getContext(),calenderPojos,this);
+       layoutManager = new LinearLayoutManager(this.getContext());
+       layoutManager.setOrientation(RecyclerView.VERTICAL);
+       recyclerView.setLayoutManager(layoutManager);
+       recyclerView.setAdapter(adapter);
+
+       calender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+           @Override
+           public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
+               String selectedDate = Integer.toString(i)+Integer.toString(i1+1)+Integer.toString(i2);
+               presenter.getAllPlans(selectedDate);
+           }
+       });
+        return view;
+    }
+    @Override
+    public void updateList(List<LocalCalenderPojo> localCalenderPojos) {
+
+                   adapter.setList(localCalenderPojos);
+                    adapter.notifyDataSetChanged();
+
+        }
+        // setList(localCalenderPojos);
+
+
+    @Override
+    public void removeFromCalender(LocalCalenderPojo localCalenderPojo) {
+        presenter.removePlan(localCalenderPojo);
     }
 }

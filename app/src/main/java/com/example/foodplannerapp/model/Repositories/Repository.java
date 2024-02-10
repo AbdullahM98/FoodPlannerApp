@@ -4,26 +4,37 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.foodplannerapp.model.LocalCalenderPojo;
 import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
 import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
 import com.example.foodplannerapp.model.LocalDataSource.MealDao;
-import com.example.foodplannerapp.model.MealPojo;
+import com.example.foodplannerapp.model.RemoteData.RealTimeDB.RealTimeDB;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
 
 import java.util.List;
 
-public class Repository implements RemoteServices, LocalServices ,ISearchRemoteServices{
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class Repository implements IHomeRemoteServices, LocalServices ,ISearchRemoteServices{
 
     private static Repository repo ;
     private RemoteDataSource remoteData;
     private LocalDataSource localData;
+    private RealTimeDB realTimeDB ;
 
 
     private Repository(RemoteDataSource remoteData , LocalDataSource localData) {
 
         this.remoteData = remoteData;
         this.localData = localData ;
+        realTimeDB = RealTimeDB.getInstance();
     }
 
     public static Repository getInstance(RemoteDataSource remoteData , LocalDataSource localData){
@@ -64,38 +75,66 @@ public class Repository implements RemoteServices, LocalServices ,ISearchRemoteS
         remoteData.filterMealByIng(searchCallBack,categoryName);
     }
 
-
     @Override
-    public LiveData<List<LocalMealPojo>> getAllFavMeals() {
-        MealDao dao = localData.getMealDao();
-        LiveData<List<LocalMealPojo>> favMeals = dao.getAllMeals();
-
-
-        return favMeals;
+    public void getMealById(ISearchCallBack searchCallBack, String mealId) {
+        remoteData.getMealByID(searchCallBack,mealId);
     }
 
+
     @Override
-    public void addMeal(LocalMealPojo mealPojo) {
+    public Flowable<List<LocalMealPojo>> getAllFavMeals() {
+        MealDao dao = localData.getMealDao();
+       return dao.getAllMeals();
+
+
+
+    }
+
+
+
+    @Override
+    public  Single<Long> addMeal(LocalMealPojo mealPojo) {
         MealDao dao = localData.getMealDao();
         Log.d("TAG", "add This Meal: "+mealPojo.getMealId()+mealPojo.getMealName());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                dao.addMeal(mealPojo);
-            }
-        }).start();
+
+              return  dao.addMeal(mealPojo);
+
     }
 
     @Override
-    public void removeMeal(LocalMealPojo mealPojo) {
+    public  Single<Integer>removeMeal(String mealId) {
         MealDao dao = localData.getMealDao();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                dao.removeMeal(mealPojo);
-            }
-        }).start();
+
+              return   dao.removeMeal(mealId);
+
     }
+
+    @Override
+    public  Single<Long> addMealToCalender(LocalCalenderPojo localCalenderPojo) {
+        MealDao dao = localData.getMealDao();
+
+
+              return  dao.addMealToCalender(localCalenderPojo);
+
+    }
+
+    @Override
+    public Flowable<List<LocalCalenderPojo>> getAllPlans(String date) {
+        MealDao dao = localData.getMealDao();
+       return dao.getAllMealPlans(date);
+
+    }
+
+    @Override
+    public Single<Integer> removeMealFromCalender(LocalCalenderPojo localCalenderPojo) {
+        realTimeDB.removeMealFromCalender(localCalenderPojo.getMealId());
+        MealDao dao = localData.getMealDao();
+      return  dao.removeMealFromCalender(localCalenderPojo.getMealId());
+
+
+
+    }
+
 
 }

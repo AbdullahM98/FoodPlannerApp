@@ -16,9 +16,12 @@ import android.view.ViewGroup;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
+import com.example.foodplannerapp.model.MealPojo;
+import com.example.foodplannerapp.model.RemoteData.RealTimeDB.RealTimeDB;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
+import com.example.foodplannerapp.model.Repositories.FavoriteRepo;
 import com.example.foodplannerapp.model.Repositories.Repository;
-import com.example.foodplannerapp.Favorite.presenter.FavoritePresenter;
+import com.example.foodplannerapp.Favorite.Presenter.FavoritePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,28 +59,23 @@ public class FavoriteFragment extends Fragment  implements IFavoriteView , onRem
         meals = new ArrayList<>();
         favAdapter = new FavAdapter(getActivity().getApplicationContext(),meals,this);
         favRecyView.setAdapter(favAdapter);
-        favPresenter = new FavoritePresenter(Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())),this);
+        favPresenter = new FavoritePresenter(Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())),this, FavoriteRepo.getInstance());
         favPresenter.getAllFav();
         return view;
     }
 
     @Override
-    public void updateFavList(LiveData<List<LocalMealPojo>> favMeals) {
+    public void updateFavList(List<LocalMealPojo> favMeals) {
         if(favMeals != null ){
-            favMeals.observe(this, new Observer<List<LocalMealPojo>>() {
-                @Override
-                public void onChanged(List<LocalMealPojo> localMealPojos) {
-                    favAdapter.setList(localMealPojos);
+
+
+                    favAdapter.setList(favMeals);
                     favAdapter.notifyDataSetChanged();
-                }
-            });
-        }else{
-            Log.d("TAG", "NoData : ");
-        }
-    }
+
+    }}
 
     @Override
-    public void deleteProducts(LocalMealPojo localMealPojo) {
+    public void deleteProducts(LocalMealPojo favMeals) {
 
     }
 
@@ -95,7 +93,8 @@ public class FavoriteFragment extends Fragment  implements IFavoriteView , onRem
     }
 
     @Override
-    public void onRemoveFavClick(LocalMealPojo mealPojo) {
+    public void onRemoveFavClick(MealPojo mealPojo) {
+        LocalMealPojo localMealPojo = new LocalMealPojo(mealPojo.getIdMeal(), mealPojo.getStrMeal(), mealPojo.getStrMealThumb());
         favPresenter.removeFromFav(mealPojo);
     }
 }

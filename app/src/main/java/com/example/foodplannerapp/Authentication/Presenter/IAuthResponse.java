@@ -1,6 +1,6 @@
-package com.example.foodplannerapp.view.Authentication.Presenter;
+package com.example.foodplannerapp.Authentication.Presenter;
 
 public interface IAuthResponse {
-    void onSuccess();
-    void onFailure();
+    void onSuccess(String userId);
+    void onFailure(String error);
 }
