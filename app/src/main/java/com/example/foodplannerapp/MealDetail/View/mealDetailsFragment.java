@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
     private boolean isFavorite , isCalenderVisible ;
     private CalendarView calender;
     private String dateSelectedStr;
+    private WebView webView ;
 
     public mealDetailsFragment() {
         // Required empty public constructors
@@ -68,10 +70,15 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
         favBtn = view.findViewById(R.id.favIconBtn);
         calenderBtn = view.findViewById(R.id.calenderIconBtn);
         calender =view.findViewById(R.id.calendarView);
+        webView = view.findViewById(R.id.webView);
+
         calender.setVisibility(View.INVISIBLE);
         isFavorite = false ;
         isCalenderVisible = false;
         myMeal = mealDetailsFragmentArgs.fromBundle(getArguments()).getMealPojo();
+        String video = "<iframe width=\"100%\" height=\"100%\" src =\" "+ myMeal.getStrYoutube()+"\"+ title = \"YoutubeVideo\"//>";
+        webView.loadData(video,"text.html","utf-8");
+        webView.getSettings().setJavaScriptEnabled(true);
         Log.d("TAG", "onCreateView: >>>>>>>>>>>>>>>>>>>>"+myMeal.getIdMeal());
         localMealPojo = new LocalMealPojo(myMeal.getIdMeal(),myMeal.getStrMeal(),myMeal.getStrMealThumb());
         Log.d("TAG", "onCreateView: >>>>>>>>>>>>>>>>>>>>"+localMealPojo.getMealId());

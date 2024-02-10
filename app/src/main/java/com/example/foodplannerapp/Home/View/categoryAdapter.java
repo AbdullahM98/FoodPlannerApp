@@ -23,7 +23,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.ViewHo
     Category category ;
     Context context;
     ViewHolder holder;
-    onCategoryClickListener listener ;
+
 
     public categoryAdapter(Context context, List<Category> categories ) {
         this.categories = categories;
@@ -55,7 +55,7 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 category = categories.get(position);
-                listener.onClick(category.getId());
+
             }
         });
     }
