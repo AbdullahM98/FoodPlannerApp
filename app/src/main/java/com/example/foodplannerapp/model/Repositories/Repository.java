@@ -136,5 +136,17 @@ public class Repository implements IHomeRemoteServices, LocalServices ,ISearchRe
 
     }
 
+    @Override
+    public Single<Integer> resetFavMeals() {
+        MealDao dao = localData.getMealDao();
+        return dao.resetFavMeals();
+    }
+
+    @Override
+    public Single<Integer> resetCalenderMeals() {
+        MealDao dao = localData.getMealDao();
+        return dao.resetCalenderMeals();
+    }
+
 
 }

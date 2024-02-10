@@ -7,6 +7,6 @@
     <string name="welcomeBack">Welcome Back!</string>
     <string name="hiUser">Hello Abdullah</string>
     <string name="favorites">Favorites</string>
-<string name="filter">"Filter"</string>
+    <string name="filter">"Filter"</string>
     <string name="dish_of_the">Dish of the day</string>
 </resources>

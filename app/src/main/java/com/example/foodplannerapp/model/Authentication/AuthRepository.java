@@ -69,4 +69,9 @@ public class AuthRepository implements IAuthRepo {
         });
     }
 
+    @Override
+    public void logout() {
+        authRepository.logout();
+    }
+
 }

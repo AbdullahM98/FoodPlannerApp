@@ -1,5 +1,6 @@
 package com.example.foodplannerapp.Home.View;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 import com.example.foodplannerapp.Home.presenter.Presenter;
 import com.example.foodplannerapp.R;
 
@@ -23,17 +26,23 @@ import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
 import com.example.foodplannerapp.model.Repositories.Repository;
+import com.example.foodplannerapp.model.RootCategories;
 import com.example.foodplannerapp.view.Communicator;
 import com.example.foodplannerapp.home.View.HomeViewInterface;
-import com.example.foodplannerapp.home.View.HomeAdapter;
+import com.example.foodplannerapp.Home.View.HomeAdapter;
 import com.example.foodplannerapp.home.presenter.IPresenter;
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 
-public class HomeFragment extends Fragment implements HomeViewInterface {
+public class HomeFragment extends Fragment implements HomeViewInterface ,onCategoryClickListener {
     List<Category> categories ;
     RecyclerView recyclerView;
     Communicator communicator;
@@ -70,9 +79,9 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
         layoutManager = new LinearLayoutManager(this.getContext());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-        adapetr = new HomeAdapter(this.getContext(),categories);
+        adapetr = new HomeAdapter(this.getContext(),categories , this);
         recyclerView.setAdapter(adapetr);
-        presenter = new Presenter(this, Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())));
+        presenter = new Presenter(this, Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())),Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())));
         presenter.getData();
         mealCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,16 +114,38 @@ public class HomeFragment extends Fragment implements HomeViewInterface {
     @Override
     public void showMeal(List<MealPojo> listOfdata) {
                    mealPojo =  listOfdata.get(0);
-//           Glide.with(getActivity().getApplicationContext())
-//                   .load(mealPojo.getStrMealThumb())
-//                  .centerCrop()
-//                    .placeholder(R.drawable.ic_launcher_foreground)
-//                  .into(mealImg);
+        Observable.just(mealPojo.getStrMealThumb())
+                .flatMap(url -> Observable.create(emitter -> {
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = Glide.with(getActivity().getApplicationContext())
+                                .asBitmap()
+                                .load(url)
+                                .submit(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+                                .get();
+                        emitter.onNext(bitmap);
+                        emitter.onComplete();
+                    } catch (InterruptedException | ExecutionException e) {
+                        emitter.onError(e);
+                    }
+                }))
+                .subscribeOn(Schedulers.io()) // Run the operation on a background thread
+                .observeOn(AndroidSchedulers.mainThread()) // Switch back to the main thread for UI updates
+                .subscribe(item->{
+                    mealImg.setImageBitmap((Bitmap) item);
+                });
     }
 
 
     @Override
     public void onFailure(String error) {
         Toast.makeText(this.getContext(), error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(String catId) {
+        RootCategories rootCategories = new RootCategories(categories);
+        HomeFragmentDirections.ActionHomeFragment2ToCategoryFragment action = HomeFragmentDirections.actionHomeFragment2ToCategoryFragment(rootCategories);
+        Navigation.findNavController(recyclerView).navigate(action);
     }
 }

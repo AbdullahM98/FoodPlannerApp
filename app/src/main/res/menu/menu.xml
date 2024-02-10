@@ -17,4 +17,9 @@
         android:icon="@drawable/calendar"
         android:id="@+id/calenderFragment2"
         />
+    <item
+        android:title="Settings"
+        android:icon="@drawable/icons8_settings"
+        android:id="@+id/settingsFragment"
+        />
 </menu>

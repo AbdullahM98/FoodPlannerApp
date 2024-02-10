@@ -1,4 +1,4 @@
-package com.example.foodplannerapp.home.View;
+package com.example.foodplannerapp.Home.View;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,20 +12,24 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.foodplannerapp.Home.View.onCategoryClickListener;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.Category;
 
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder>  {
     List<Category> categories;
     Category category ;
     Context context;
     ViewHolder holder;
+    onCategoryClickListener listener ;
 
-    public HomeAdapter(Context context, List<Category> categories) {
+    public HomeAdapter(Context context, List<Category> categories ,onCategoryClickListener onCategoryClickListener) {
         this.categories = categories;
         this.context = context;
+        this.listener = onCategoryClickListener;
+
     }
 
     @NonNull
@@ -47,6 +51,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 .centerCrop()
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.imgView);
+        holder.category_row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                category = categories.get(position);
+                listener.onClick(category.getId());
+            }
+        });
     }
 
     @Override

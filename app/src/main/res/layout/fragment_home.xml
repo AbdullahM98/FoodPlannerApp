@@ -63,22 +63,8 @@
             app:layout_constraintTop_toBottomOf="@id/helloTxt" />
 
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imgVwMeal"
-        android:layout_width="73dp"
-        android:layout_height="62dp"
 
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/profile"
-        android:translationZ="2dp"
-        app:layout_constraintEnd_toStartOf="@id/rightGuideline"
-        app:layout_constraintTop_toBottomOf="@id/topGuideline"
-        app:riv_border_color="#333333"
-        app:riv_mutate_background="true"
-        app:riv_oval="true"
-        app:riv_tile_mode="repeat" />
+
 
 
         <TextView
@@ -88,7 +74,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/dish_of_the"
             android:textFontWeight="700"
@@ -137,9 +123,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/poppins_regular"
-            android:text="@string/dish_of_the"
+            android:text="Categories"
             android:textFontWeight="700"
             android:textSize="20dp"
 

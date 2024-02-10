@@ -3,6 +3,7 @@ package com.example.foodplannerapp.Home.presenter;
 import android.util.Log;
 
 import com.example.foodplannerapp.model.Category;
+import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
 import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.Repositories.NetworkCallBack;
 import com.example.foodplannerapp.model.Repositories.IHomeRemoteServices;
@@ -12,13 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Presenter implements NetworkCallBack ,IPresenter {
-    com.example.foodplannerapp.home.View.HomeViewInterface categoryView;
+   HomeViewInterface categoryView;
+   LocalServices localServices;
     IHomeRemoteServices repo ;
 
-    public Presenter(HomeViewInterface categoryView , IHomeRemoteServices repo) {
+    public Presenter(HomeViewInterface categoryView , IHomeRemoteServices repo , LocalServices localServices) {
 
         this.repo = repo;
         this.categoryView = categoryView;
+        this.localServices = localServices;
 
     }
 

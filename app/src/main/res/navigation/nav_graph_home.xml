@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment2_to_mealDetailsFragment"
             app:destination="@id/mealDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
@@ -41,5 +44,19 @@
         <action
             android:id="@+id/action_searchFragment2_to_mealDetailsFragment"
             app:destination="@id/mealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.foodplannerapp.settings.view.settingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.foodplannerapp.Home.View.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <argument
+            android:name="categories"
+            app:argType="com.example.foodplannerapp.model.RootCategories" />
     </fragment>
 </navigation>

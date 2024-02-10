@@ -16,4 +16,6 @@ public interface LocalServices {
     Single<Long> addMealToCalender(LocalCalenderPojo localCalenderPojo);
     Flowable<List<LocalCalenderPojo>> getAllPlans(String date);
     Single<Integer> removeMealFromCalender(LocalCalenderPojo localCalenderPojo);
+    Single<Integer> resetFavMeals();
+    Single<Integer> resetCalenderMeals();
 }
