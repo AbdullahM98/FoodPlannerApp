@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +28,9 @@ import com.example.foodplannerapp.model.Repositories.FavoriteRepo;
 import com.example.foodplannerapp.model.Repositories.Repository;
 import com.example.foodplannerapp.MealDetail.Presenter.IMealsPresenter;
 import com.example.foodplannerapp.MealDetail.Presenter.MealDetailsPresenter;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +42,17 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
     private TextView mealName , mealCat , mealCountry , ingredientTxt , detailsTxt ;
     private  ImageView mealImg , favBtn , calenderBtn;
     private  MealPojo myMeal;
+    private RecyclerView ingRecyView;
+    private LinearLayoutManager manager ;
+
+    private DetailsIngredientAdapter ingredientAdapter ;
+
     private LocalMealPojo localMealPojo;
 
     private boolean isFavorite , isCalenderVisible ;
     private CalendarView calender;
     private String dateSelectedStr;
+    YouTubePlayerView youTubePlayerView;
   //  private WebView webView ;
 
     public mealDetailsFragment() {
@@ -59,7 +70,13 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_meal_detail, container, false);
-
+        ingRecyView = view.findViewById(R.id.ingRecyView);
+        ingredientAdapter = new DetailsIngredientAdapter(this.getContext(),new ArrayList<>());
+        manager = new LinearLayoutManager(this.getContext());
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        ingRecyView.setLayoutManager(manager);
+        ingRecyView.setAdapter(ingredientAdapter);
+        youTubePlayerView = view.findViewById(R.id.youTubePlayerView);
         mealName = view.findViewById(R.id.mealNameTxtView);
         mealCat = view.findViewById(R.id.mealCategoryTxtView);
         mealCountry = view.findViewById(R.id.countryTxtView);
@@ -83,6 +100,7 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(mealImg);
         mealName.setText(myMeal.getStrMeal());
+        getIngredients();
         mealCat.setText(myMeal.getStrCategory());
         mealCountry.setText(myMeal.getStrArea());
         ingredientTxt.setText("Description");
@@ -121,7 +139,14 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
                 presenter.addMealToCalender(dateSelectedStr,myMeal);
             }
         });
-
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                super.onReady(youTubePlayer);
+                String videoMealDetail = getVideoLink(myMeal.getStrYoutube());
+                youTubePlayer.cueVideo(videoMealDetail, 0);
+            }
+        });
         return view ;
     }
 
@@ -156,6 +181,26 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
     }
     private void getIngredients(){
         List<String> ingredients = new ArrayList<>();
-       
+        ingredients.add(myMeal.getStrIngredient1());
+        ingredients.add(myMeal.getStrIngredient2());
+        ingredients.add(myMeal.getStrIngredient3());
+        ingredients.add(myMeal.getStrIngredient4());
+        ingredients.add(myMeal.getStrIngredient5());
+        ingredients.add(myMeal.getStrIngredient6());
+        ingredientAdapter.setList(ingredients);
+        ingredientAdapter.notifyDataSetChanged();
+
+
+    }
+    public String getVideoLink(String link) {
+        if (link != null && link.split("\\?v=").length > 1)
+            return link.split("\\?v=")[1];
+        else return "";
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        youTubePlayerView.release();
     }
 }
