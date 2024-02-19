@@ -11,6 +11,10 @@ import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
 import com.example.foodplannerapp.model.LocalDataSource.MealDao;
 import com.example.foodplannerapp.model.RemoteData.RealTimeDB.RealTimeDB;
 import com.example.foodplannerapp.model.RemoteData.RemoteDataSource;
+import com.example.foodplannerapp.model.RootArea;
+import com.example.foodplannerapp.model.RootCategories;
+import com.example.foodplannerapp.model.RootIngredient;
+import com.example.foodplannerapp.model.RootMeal;
 
 import java.util.List;
 
@@ -22,7 +26,7 @@ import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class Repository implements IHomeRemoteServices, LocalServices ,ISearchRemoteServices{
+public class Repository implements IHomeRemoteServices, LocalServices ,ISearchRemoteServices,IFilterByIngredientServices,IFilterByAreaServices{
 
     private static Repository repo ;
     private RemoteDataSource remoteData;
@@ -46,38 +50,49 @@ public class Repository implements IHomeRemoteServices, LocalServices ,ISearchRe
 
 
     @Override
-    public void getAllCategories(NetworkCallBack networkCallBack) {
-        remoteData.getCategoryCall(networkCallBack);
+    public Single<RootCategories> getAllCategories() {
+       return remoteData.getCategoryCall();
     }
 
     @Override
-    public void getRandomMeal(NetworkCallBack networkCallBack) {
-        remoteData.getRandomMealCall(networkCallBack);
-    }
-
-   @Override
-    public void searchMealByName(ISearchCallBack networkCallBack, String mealName) {
-        remoteData.searchMealByName(networkCallBack,mealName);
+    public  Single<RootMeal> getRandomMeal() {
+       return remoteData.getRandomMealCall();
     }
 
     @Override
-    public void filterByCategory(ISearchCallBack searchCallBack, String categoryName) {
-        remoteData.filterMealByCategory(searchCallBack,categoryName);
+    public Single<RootArea> listAllMealsByCountry() {
+        return  remoteData.getAllMealsByCountry();
     }
 
     @Override
-    public void filterByCountry(ISearchCallBack searchCallBack, String areaName) {
-        remoteData.filterMealByCountry(searchCallBack,areaName);
+    public Single<RootIngredient> listAllMealsByIngredients() {
+        return remoteData.ListAllIngredients();
     }
 
     @Override
-    public void filterByIngredient(ISearchCallBack searchCallBack, String categoryName) {
-        remoteData.filterMealByIng(searchCallBack,categoryName);
+    public Single<RootMeal> searchMealByName( String mealName) {
+       return remoteData.searchMealByName(mealName);
     }
 
     @Override
-    public void getMealById(ISearchCallBack searchCallBack, String mealId) {
-        remoteData.getMealByID(searchCallBack,mealId);
+    public Single<RootMeal> filterByCategory( String categoryName) {
+        return  remoteData.filterMealByCategory(categoryName);
+    }
+
+    @Override
+    public Single<RootMeal> filterByCountry( String areaName) {
+        return remoteData.filterMealByCountry(areaName);
+    }
+
+    @Override
+    public Single<RootMeal> filterByIngredient( String categoryName) {
+        return  remoteData.filterMealByIng(categoryName);
+    }
+
+    @Override
+    public Single<RootMeal> getMealById( String mealId) {
+        return remoteData.getMealByID(mealId);
+
     }
 
 

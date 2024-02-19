@@ -2,17 +2,19 @@ package com.example.foodplannerapp.Home.presenter;
 
 import android.util.Log;
 
-import com.example.foodplannerapp.model.Category;
 import com.example.foodplannerapp.model.LocalDataSource.LocalServices;
-import com.example.foodplannerapp.model.MealPojo;
-import com.example.foodplannerapp.model.Repositories.NetworkCallBack;
 import com.example.foodplannerapp.model.Repositories.IHomeRemoteServices;
 import com.example.foodplannerapp.home.View.HomeViewInterface;
-import  com.example.foodplannerapp.home.presenter.IPresenter;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.foodplannerapp.model.RootArea;
+import com.example.foodplannerapp.model.RootCategories;
+import com.example.foodplannerapp.model.RootIngredient;
+import com.example.foodplannerapp.model.RootMeal;
 
-public class Presenter implements NetworkCallBack ,IPresenter {
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class Presenter implements IPresenter {
    HomeViewInterface categoryView;
    LocalServices localServices;
     IHomeRemoteServices repo ;
@@ -25,26 +27,64 @@ public class Presenter implements NetworkCallBack ,IPresenter {
 
     }
 
-    public void onSuccessResult(List<Category> listOfData) {
-        Log.d("TAG", "onSuccessResult: "+listOfData);
 
-            categoryView.showData((List<Category>) listOfData);
-
-    }
-
-    @Override
-    public void onSuccessRandomMeal(ArrayList<MealPojo> meals) {
-        categoryView.showMeal(meals);
-    }
-
-    @Override
-    public void onFailedResult(String errorMsg) {
-        categoryView.onFailure(errorMsg);
-    }
 
     @Override
     public void getData() {
-        repo.getAllCategories(this);
-       repo.getRandomMeal(this);
+        Single<RootCategories> categoriesObs = repo.getAllCategories();
+        categoriesObs.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
+                    // updateView
+                    categoryView.showData(item.getCategories());
+                },throwable -> {
+                    categoryView.onFailure(throwable.getMessage());
+                }
+
+                );
+
+    }
+    @Override
+    public void getRandomMeal(){
+        Single<RootMeal> randomMeal = repo.getRandomMeal();
+        randomMeal.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
+                    // updateView
+            categoryView.showMeal(item.getMeals());
+                },throwable -> {
+                    categoryView.onFailure(throwable.getMessage());
+                }
+
+        );
+    }
+
+
+
+//    @Override
+//    public void getMealsIngredients() {
+//
+//    }
+
+     @Override
+    public void getMealsByCountry() {
+        Single<RootArea> mealsByCountry = repo.listAllMealsByCountry();
+        mealsByCountry.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
+                categoryView.showCountry(item.getAreas());
+
+                },throwable -> {
+                    categoryView.onFailure(throwable.getMessage());
+
+                });
+    }
+
+    @Override
+    public void getIngredients() {
+        Single<RootIngredient> ingredientSingle = repo.listAllMealsByIngredients();
+        ingredientSingle.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                item->{
+                    categoryView.showIng(item.getIngredientPojos());
+                    Log.d("TAGG", "getIngredients: "+item.getIngredientPojos().size());
+                },throwable -> {
+                    categoryView.onFailure(throwable.getMessage());
+                }
+        );
     }
 }

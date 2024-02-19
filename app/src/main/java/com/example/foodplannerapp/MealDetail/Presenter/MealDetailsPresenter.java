@@ -10,6 +10,9 @@ import com.example.foodplannerapp.model.MealPojo;
 import com.example.foodplannerapp.model.Repositories.CalenderRepo;
 import com.example.foodplannerapp.model.Repositories.FavoriteRepo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -59,4 +62,6 @@ public class MealDetailsPresenter implements IMealsPresenter {
         single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
 
     }
+
+
 }

@@ -26,7 +26,7 @@ LinearLayoutManager manager;
 RecyclerView recyclerView;
 List<Category> categories;
 RootCategories rootCategories;
-com.example.foodplannerapp.home.presenter.IPresenter presenter ;
+com.example.foodplannerapp.Home.presenter.IPresenter presenter ;
 
     public CategoryFragment() {
         // Required empty public constructor

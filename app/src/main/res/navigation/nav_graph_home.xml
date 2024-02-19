@@ -15,6 +15,12 @@
         <action
             android:id="@+id/action_homeFragment2_to_categoryFragment"
             app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_filterByAreaFragment"
+            app:destination="@id/filterByAreaFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_filterByIngredientFragment"
+            app:destination="@id/filterByIngredientFragment" />
     </fragment>
     <fragment
         android:id="@+id/mealDetailsFragment"
@@ -58,5 +64,23 @@
         <argument
             android:name="categories"
             app:argType="com.example.foodplannerapp.model.RootCategories" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterByAreaFragment"
+        android:name="com.example.foodplannerapp.filter.ByArea.view.FilterByAreaFragment"
+        android:label="fragment_filter_by_area"
+        tools:layout="@layout/fragment_filter_by_area" >
+        <argument
+            android:name="areaPojo"
+            app:argType="com.example.foodplannerapp.model.AreaPojo" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterByIngredientFragment"
+        android:name="com.example.foodplannerapp.filter.ByIngredient.view.FilterByIngredientFragment"
+        android:label="fragment_filter_by_ingredient"
+        tools:layout="@layout/fragment_filter_by_ingredient" >
+        <argument
+            android:name="ingredientPojo"
+            app:argType="com.example.foodplannerapp.model.IngredientPojo" />
     </fragment>
 </navigation>

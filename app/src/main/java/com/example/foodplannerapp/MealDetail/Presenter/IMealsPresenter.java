@@ -7,4 +7,5 @@ public interface IMealsPresenter {
     void addToFav(MealPojo mealPojo);
     void removeFromFav(MealPojo mealPojo);
     void addMealToCalender(String date , MealPojo meal);
+
 }

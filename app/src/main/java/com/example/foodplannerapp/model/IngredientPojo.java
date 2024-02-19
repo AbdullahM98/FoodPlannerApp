@@ -1,9 +1,9 @@
 package com.example.foodplannerapp.model;
 
 
+import java.io.Serializable;
 
-
-    public class IngredientPojo {
+public class IngredientPojo implements Serializable {
         public String idIngredient;
         public String strIngredient;
         public String strDescription;

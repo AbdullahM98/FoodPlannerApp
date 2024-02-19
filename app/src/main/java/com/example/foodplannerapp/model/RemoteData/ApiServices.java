@@ -1,7 +1,9 @@
 package com.example.foodplannerapp.model.RemoteData;
 
 import com.example.foodplannerapp.model.MealPojo;
+import com.example.foodplannerapp.model.RootArea;
 import com.example.foodplannerapp.model.RootCategories;
+import com.example.foodplannerapp.model.RootIngredient;
 import com.example.foodplannerapp.model.RootMeal;
 import com.google.android.gms.common.data.DataBufferObserver;
 
@@ -30,4 +32,10 @@ public interface ApiServices {
   Single<RootMeal> filterByIngredient(@Query("i") String categoryName );
   @GET("lookup.php/{query}")
   Single<RootMeal> getMealById(@Query("i") String MealName );
+  @GET("list.php?a=list")
+  Single<RootArea> listAllMealsByCountry();
+
+  @GET("list.php?i=list")
+  Single<RootIngredient> listAllMealsByIngredient();
+
 }

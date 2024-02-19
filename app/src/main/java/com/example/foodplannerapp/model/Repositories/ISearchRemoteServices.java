@@ -6,12 +6,12 @@ import io.reactivex.rxjava3.core.Single;
 
 
 public interface ISearchRemoteServices {
-    void searchMealByName(ISearchCallBack searchCallBack, String mealName);
-    void filterByCategory(ISearchCallBack searchCallBack, String categoryName );
+    Single<RootMeal> searchMealByName(String mealName);
+    Single<RootMeal> filterByCategory( String categoryName );
 
 
-    void filterByCountry( ISearchCallBack searchCallBack,String areaName );
+    Single<RootMeal> filterByCountry( String areaName );
 
-    void filterByIngredient(ISearchCallBack searchCallBack, String categoryName );
-    void getMealById(ISearchCallBack searchCallBack , String mealId);
+    Single<RootMeal> filterByIngredient( String categoryName );
+    Single<RootMeal> getMealById(String mealId);
 }
