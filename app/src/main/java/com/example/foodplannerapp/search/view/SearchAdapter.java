@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -73,7 +74,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder{
-            CardView searchItem;
+            ConstraintLayout searchItem;
             TextView searchTxt;
 
 
@@ -83,7 +84,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 super(itemView);
 
                 searchTxt = itemView.findViewById(R.id.searchResult);
-                searchItem = itemView.findViewById(R.id.searchItemCard);
+                searchItem = itemView.findViewById(R.id.search_row);
 
 
 

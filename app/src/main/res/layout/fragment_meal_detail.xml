@@ -182,10 +182,12 @@
             android:layout_height="265dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="168dp"
-            android:background="@color/darkGrey"
+            android:background="@color/white"
+
+            app:circularflow_radiusInDP="6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="invisible" />
+            tools:visibility="gone" />
 
 
         <TextView
@@ -212,7 +214,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
             android:paddingBottom="12dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@id/leftGuideline"
             app:layout_constraintStart_toStartOf="@id/rightGuideline"
             app:layout_constraintTop_toBottomOf="@id/videoTxt" />

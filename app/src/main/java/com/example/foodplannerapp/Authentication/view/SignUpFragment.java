@@ -39,9 +39,9 @@ public class SignUpFragment extends Fragment implements IAuthView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
-        nameEditTxt = view.findViewById(R.id.nameEditTxt);
-        emailEditTxt = view.findViewById(R.id.emailEditText);
-        passwordEditTxt = view.findViewById(R.id.passEditText);
+        nameEditTxt = view.findViewById(R.id.name_edit_text);
+        emailEditTxt = view.findViewById(R.id.email_edit_text);
+        passwordEditTxt = view.findViewById(R.id.password_edit_text);
         registerBtn = view.findViewById(R.id.registerBtn);
         presenter = new AuthPresenter(AuthRepository.getInstance(),this);
         registerBtn.setOnClickListener(new View.OnClickListener() {

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@color/white"
+    android:background="@color/white"
     tools:context=".search.view.SearchFragment">
 
 
@@ -18,7 +19,8 @@
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
-       android:backgroundTint="@color/darkGrey"
+
+       android:backgroundTint="@color/white"
        android:elevation="4dp">
 
        <androidx.appcompat.widget.SearchView
@@ -49,7 +51,7 @@
         <com.google.android.material.chip.ChipGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+android:background="@color/white"
 android:layout_marginStart="10dp"
             >
             <com.google.android.material.chip.Chip
@@ -61,6 +63,7 @@ android:layout_marginStart="10dp"
 
                 app:chipIcon="@drawable/down_arrow_svgrepo_com"
                 app:checkedIconTint="@color/black"
+
                 />
             <com.google.android.material.chip.Chip
                 android:id="@+id/ingredientFilterChip"

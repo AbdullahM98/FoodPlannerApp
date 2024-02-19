@@ -153,6 +153,8 @@ public class HomeFragment extends Fragment implements HomeViewInterface ,onCateg
                 .observeOn(AndroidSchedulers.mainThread()) // Switch back to the main thread for UI updates
                 .subscribe(item->{
                     mealImg.setImageBitmap((Bitmap) item);
+                },throwable -> {
+                    Toast.makeText(this.getContext(), "Couldnt get image", Toast.LENGTH_SHORT).show();
                 });
     }
 

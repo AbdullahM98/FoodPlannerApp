@@ -54,8 +54,8 @@ public class SignInFragment extends Fragment implements IAuthView {
         View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         Log.d("TAG", "onCreateView: ");
         loginBtn = view.findViewById(R.id.registerBtn);
-        emailTxt = view.findViewById(R.id.emailTxt);
-        passTxt = view.findViewById(R.id.passTxt);
+        emailTxt = view.findViewById(R.id.email_edit_text);
+        passTxt = view.findViewById(R.id.password_edit_text);
         registerTxt = view.findViewById(R.id.registerTxtView);
         presenter = new AuthPresenter(AuthRepository.getInstance(),this);
 

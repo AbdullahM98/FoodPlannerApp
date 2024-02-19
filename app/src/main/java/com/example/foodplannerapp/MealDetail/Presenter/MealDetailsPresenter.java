@@ -38,7 +38,9 @@ public class MealDetailsPresenter implements IMealsPresenter {
        // Log.d("TAG", "AddtoFav: ."+mealPojo.getMealId());
         LocalMealPojo localMealPojo = new LocalMealPojo(mealPojo.getIdMeal(), mealPojo.getStrMeal(), mealPojo.getStrMealThumb());
         Single<Long> single= repo.addMeal(localMealPojo);
-        single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
+            view.showToast("Added to Favorite");
+        });
 
 
         favoriteRepo.addMealToFav(mealPojo);
@@ -49,7 +51,9 @@ public class MealDetailsPresenter implements IMealsPresenter {
         LocalMealPojo localMealPojo = new LocalMealPojo(mealPojo.getIdMeal(), mealPojo.getStrMeal(), mealPojo.getStrMealThumb());
 
         Single<Integer> single= repo.removeMeal(localMealPojo.getMealId());
-        single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(item->{
+            view.showToast("Removed from Favortite");
+        });
     }
     @Override
     public void addMealToCalender(String date , MealPojo meal){
@@ -59,7 +63,11 @@ public class MealDetailsPresenter implements IMealsPresenter {
         localCalenderPojo.setImgUrl(meal.getStrMealThumb());
 
         Single<Long> single=  repo.addMealToCalender(localCalenderPojo);;
-        single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+        single.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(
+                item->{
+                    view.showToast("Added to Calender");
+                }
+        );
 
     }
 

@@ -111,10 +111,12 @@ public class mealDetailsFragment extends Fragment implements IMealDetailsView , 
             public void onClick(View view) {
                 if(!isFavorite){
                     presenter.addToFav(myMeal);
-
+                    favBtn.setImageResource(R.drawable.reshot_icon_heart);
                     isFavorite = true ;
                 }else{
                     presenter.removeFromFav(myMeal);
+                    favBtn.setImageResource(R.drawable.heart);
+
                     isFavorite = false;
                 }
             }
