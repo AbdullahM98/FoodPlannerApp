@@ -72,6 +72,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         public void setList(List<MealPojo> meals){
             this.meals = meals;
         }
+        public List<MealPojo> getMeals(){
+            return meals;
+        }
 
         public static class ViewHolder extends RecyclerView.ViewHolder{
             ConstraintLayout searchItem;

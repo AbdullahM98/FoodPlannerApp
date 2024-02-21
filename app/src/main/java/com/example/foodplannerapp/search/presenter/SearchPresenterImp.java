@@ -45,6 +45,9 @@ public class SearchPresenterImp implements ISearchPresenter  {
                     view.showError(throwable.getMessage());
                 });
     }
+
+
+
     @Override
     public void searchMealByName(String mealName) {
 

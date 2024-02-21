@@ -18,4 +18,5 @@ public interface LocalServices {
     Single<Integer> removeMealFromCalender(LocalCalenderPojo localCalenderPojo);
     Single<Integer> resetFavMeals();
     Single<Integer> resetCalenderMeals();
+    void removeAllMeals();
 }

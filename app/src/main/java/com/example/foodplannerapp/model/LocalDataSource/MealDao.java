@@ -1,5 +1,7 @@
 package com.example.foodplannerapp.model.LocalDataSource;
 
+import static java.nio.file.attribute.AclEntryPermission.DELETE;
+
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -20,6 +22,8 @@ import io.reactivex.rxjava3.core.Single;
 public interface MealDao {
     @Query("SELECt* FROM meal_table")
     Flowable<List<LocalMealPojo>> getAllMeals();
+    @Query("DELETE FROM meal_table" )
+    void deleteAllMeals();
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     Single<Long> addMeal(LocalMealPojo mealPojo);
     @Query ("DELETE FROM meal_table WHERE mealId = :mealId")

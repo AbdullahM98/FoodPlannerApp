@@ -25,6 +25,7 @@ import android.widget.RadioGroup;
 
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.MealPojo;
@@ -55,7 +56,7 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
     List<String> filterCategories ;
     List<String> filterIngredients ;
 
-
+    LottieAnimationView animationView;
     MealPojo mealPojo;
     String  checkedBtnText ;
 
@@ -76,11 +77,31 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
         mealPojo = new MealPojo();
         adapter = new SearchAdapter(this.getContext(),searchResults,this);
 
+
+        animationView = view.findViewById(R.id.animation_view);
         manager = new LinearLayoutManager(this.getContext());
         searchRecyView = view.findViewById(R.id.searchRecyView);
         searchView = view.findViewById(R.id.searchView);
-        searchView.clearFocus();
+        countryFilterChip = view.findViewById(R.id.countryFilterChip);
+        categoryFilterChip = view.findViewById(R.id.categoryFilterChip);
+        ingFilterChip = view.findViewById(R.id.ingredientFilterChip);
+        bottomSheetDialog = new BottomSheetDialog(this.getContext());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        searchRecyView.setLayoutManager(manager);
+        searchRecyView.setAdapter(adapter);
 
+        presenter = new SearchPresenterImp(this, Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(this.getContext())));
+
+
+        bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        searchView.clearFocus();
+        if(adapter.getMeals().size()==0){
+            animationView.setVisibility(View.VISIBLE);
+            searchRecyView.setVisibility(View.GONE);
+        }else{
+            animationView.setVisibility(View.INVISIBLE);
+            searchRecyView.setVisibility(View.VISIBLE);
+        }
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -94,19 +115,7 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
                 return true;
             }
         });
-        countryFilterChip = view.findViewById(R.id.countryFilterChip);
-        categoryFilterChip = view.findViewById(R.id.categoryFilterChip);
-        ingFilterChip = view.findViewById(R.id.ingredientFilterChip);
 
-        bottomSheetDialog = new BottomSheetDialog(this.getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        searchRecyView.setLayoutManager(manager);
-        searchRecyView.setAdapter(adapter);
-        presenter = new SearchPresenterImp(this, Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(this.getContext())));
-
-        presenter.searchMealByName("ab");
-
-        bottomSheetDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         countryFilterChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,7 +163,10 @@ public class SearchFragment extends Fragment implements ISearchView, OnItemClick
     public void updateList(List<MealPojo> searchResultMeals) {
         if(searchResultMeals!=null){
         adapter.setList(searchResultMeals);
-        adapter.notifyDataSetChanged();}
+        adapter.notifyDataSetChanged();
+        }
+        animationView.setVisibility(View.INVISIBLE);
+        searchRecyView.setVisibility(View.VISIBLE);
     }
 
     @Override

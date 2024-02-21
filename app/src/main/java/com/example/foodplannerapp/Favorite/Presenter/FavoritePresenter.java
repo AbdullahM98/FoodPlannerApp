@@ -44,6 +44,11 @@ public class FavoritePresenter implements IFavoritePresenter , IFavoritesCallBac
     }
 
     @Override
+    public void removeAllMeals() {
+        localServices.removeAllMeals();
+    }
+
+    @Override
     public void onSuccess(RootMeal rootMeal) {
         List<LocalMealPojo> mealPojoList = new ArrayList<>();
         rootMeal.getMeals().forEach(item->{

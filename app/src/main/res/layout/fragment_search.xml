@@ -51,15 +51,14 @@
         <com.google.android.material.chip.ChipGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-android:background="@color/white"
-android:layout_marginStart="10dp"
-            >
+            android:background="@color/white">
             <com.google.android.material.chip.Chip
                 android:id="@+id/countryFilterChip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Country"
                 android:textSize="12dp"
+                android:gravity="start"
 
                 app:chipIcon="@drawable/down_arrow_svgrepo_com"
                 app:checkedIconTint="@color/black"
@@ -71,6 +70,7 @@ android:layout_marginStart="10dp"
                 android:layout_height="wrap_content"
                 android:text="Ingredient"
                 android:textSize="12dp"
+                android:gravity="center"
                 app:chipIcon="@drawable/down_arrow_svgrepo_com"
                 app:checkedIconTint="@color/black"
                 />
@@ -98,5 +98,19 @@ android:layout_marginStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filterBar" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="397dp"
+        android:layout_height="367dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/filterBar"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/no_result" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

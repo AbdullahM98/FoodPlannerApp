@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplannerapp.R;
 import com.example.foodplannerapp.model.LocalDataSource.LocalDataSource;
 import com.example.foodplannerapp.model.LocalDataSource.LocalMealPojo;
@@ -32,7 +33,7 @@ public class FavoriteFragment extends Fragment  implements IFavoriteView , onRem
     RecyclerView favRecyView;
     LinearLayoutManager layoutManager;
     FavoritePresenter favPresenter ;
-
+    LottieAnimationView lottieAnimationView;
     FavAdapter favAdapter ;
     public FavoriteFragment() {
         // Required empty public constructor
@@ -52,6 +53,7 @@ public class FavoriteFragment extends Fragment  implements IFavoriteView , onRem
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
+        lottieAnimationView =view.findViewById(R.id.animation_view);
         favRecyView = view.findViewById(R.id.favRecyView);
         layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
@@ -61,17 +63,24 @@ public class FavoriteFragment extends Fragment  implements IFavoriteView , onRem
         favRecyView.setAdapter(favAdapter);
         favPresenter = new FavoritePresenter(Repository.getInstance(RemoteDataSource.getInstance(), LocalDataSource.getInstance(getActivity().getApplicationContext())),this, FavoriteRepo.getInstance());
         favPresenter.getAllFav();
+       // favPresenter.removeAllMeals();
+
+        if(favAdapter.getMeals().size()==0){
+            favRecyView.setVisibility(View.INVISIBLE);
+            lottieAnimationView.setVisibility(View.VISIBLE);
+        }
         return view;
     }
 
     @Override
     public void updateFavList(List<LocalMealPojo> favMeals) {
         if(favMeals != null ){
-
-
                     favAdapter.setList(favMeals);
                     favAdapter.notifyDataSetChanged();
-
+                    favRecyView.setVisibility(View.VISIBLE);
+                    if(favMeals.size()!=0){
+                        lottieAnimationView.setVisibility(View.INVISIBLE);
+                    }
     }}
 
     @Override

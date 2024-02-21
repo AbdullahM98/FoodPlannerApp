@@ -80,6 +80,10 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.ViewHolder>{
     public void setList(List<LocalMealPojo> meals){
         this.meals = meals;
     }
+    public List<LocalMealPojo> getMeals(){
+        return  meals;
+    }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         CardView fav_row ;

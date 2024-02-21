@@ -163,5 +163,13 @@ public class Repository implements IHomeRemoteServices, LocalServices ,ISearchRe
         return dao.resetCalenderMeals();
     }
 
+    @Override
+    public void removeAllMeals() {
+        MealDao dao = localData.getMealDao();
+        new Thread(()->{
+                dao.deleteAllMeals();
+        }).start();
+    }
+
 
 }

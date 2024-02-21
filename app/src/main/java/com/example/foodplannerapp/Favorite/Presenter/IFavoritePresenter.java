@@ -6,4 +6,5 @@ import com.example.foodplannerapp.model.MealPojo;
 public interface IFavoritePresenter {
     void getAllFav();
     void removeFromFav(MealPojo mealPojo);
+    void removeAllMeals();
 }
