@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_home"
+    app:startDestination="@id/homeFragment2">
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.example.foodplannerapp.Home.View.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment2_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_filterByAreaFragment"
+            app:destination="@id/filterByAreaFragment" />
+        <action
+            android:id="@+id/action_homeFragment2_to_filterByIngredientFragment"
+            app:destination="@id/filterByIngredientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mealDetailsFragment"
+        android:name="com.example.foodplannerapp.MealDetail.View.mealDetailsFragment"
+        android:label="fragment_meal_detail"
+        tools:layout="@layout/fragment_meal_detail" >
+        <argument
+            android:name="mealPojo"
+            app:argType="com.example.foodplannerapp.model.MealPojo"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/calenderFragment2"
+        android:name="com.example.foodplannerapp.calender.view.CalenderFragment"
+        android:label="fragment_calender"
+        tools:layout="@layout/fragment_calender" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.foodplannerapp.Favorite.view.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.foodplannerapp.search.view.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment2_to_mealDetailsFragment"
+            app:destination="@id/mealDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.foodplannerapp.settings.view.settingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.foodplannerapp.Home.View.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <argument
+            android:name="categories"
+            app:argType="com.example.foodplannerapp.model.RootCategories" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterByAreaFragment"
+        android:name="com.example.foodplannerapp.filter.ByArea.view.FilterByAreaFragment"
+        android:label="fragment_filter_by_area"
+        tools:layout="@layout/fragment_filter_by_area" >
+        <argument
+            android:name="areaPojo"
+            app:argType="com.example.foodplannerapp.model.AreaPojo" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterByIngredientFragment"
+        android:name="com.example.foodplannerapp.filter.ByIngredient.view.FilterByIngredientFragment"
+        android:label="fragment_filter_by_ingredient"
+        tools:layout="@layout/fragment_filter_by_ingredient" >
+        <argument
+            android:name="ingredientPojo"
+            app:argType="com.example.foodplannerapp.model.IngredientPojo" />
+    </fragment>
+</navigation>

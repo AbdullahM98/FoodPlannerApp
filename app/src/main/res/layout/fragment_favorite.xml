@@ -5,17 +5,45 @@
     android:id="@+id/favorite_FRAGMENT"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Home.Favorite.view.FavoriteFragment">
+    tools:context=".Favorite.view.FavoriteFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/hello_blank_fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/favorites"
+        android:textSize="18dp"
+        android:textFontWeight="700"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favRecyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="273dp"
+        android:layout_height="253dp"
+        android:layout_marginTop="190dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/cat_ani" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

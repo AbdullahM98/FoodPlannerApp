@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.foodplannerapp.view.Authentication.Presenter.IAuthResponse;
+import com.example.foodplannerapp.Authentication.Presenter.IAuthResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -15,7 +15,7 @@ import java.util.concurrent.Executor;
 
 public class AuthRepository implements IAuthRepo {
     FirebaseAuth fireAuth;
-    ;
+    FirebaseUser user ;
 
     private static AuthRepository authRepository;
     private AuthRepository(FirebaseAuth fireAuth) {
@@ -36,14 +36,16 @@ public class AuthRepository implements IAuthRepo {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            user = FirebaseAuth.getInstance().getCurrentUser();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "createUserWithEmail:success");
                            // FirebaseUser user = fireAuth.getCurrentUser();
-                            authResponse.onSuccess();
+                            authResponse.onSuccess(user.getUid());
+                            Log.d("Auth", "onComplete: username "+user.getDisplayName());
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            authResponse.onFailure();
+                            authResponse.onFailure("Sign Up failed , Try Again");
                             //updateUI(null);
                         }
                     }
@@ -56,14 +58,20 @@ public class AuthRepository implements IAuthRepo {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    iAuthResponse.onSuccess();
+                    user = FirebaseAuth.getInstance().getCurrentUser();
+                    iAuthResponse.onSuccess(user.getUid());
                     Log.d("TAG", "signIn succesful: ");
                 }else{
-                    iAuthResponse.onFailure();
+                    iAuthResponse.onFailure("Sign In failed , Try Again");
                     Log.d("TAG", "signIn failed: ");
                 }
             }
         });
+    }
+
+    @Override
+    public void logout() {
+        authRepository.logout();
     }
 
 }

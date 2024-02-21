@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
+    id("androidx.navigation.safeargs")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -46,17 +48,30 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.7.2")
     implementation ("com.squareup.retrofit2:converter-gson:2.7.2")
     implementation ("com.squareup.okhttp3:okhttp:3.6.0")
+
     //glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     //room
-    implementation("androidx.room:room-runtime:2.4.1")
-    annotationProcessor("androidx.room:room-compiler:2.4.1")
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    // nav
     implementation ("androidx.navigation:navigation-fragment:2.5.3")
     implementation ("androidx.navigation:navigation-ui:2.5.3")
+    //lottie
     implementation ("com.airbnb.android:lottie:3.4.0")
+    //rounded
     implementation ("com.makeramen:roundedimageview:2.3.0")
-    implementation ("androidx.room:room-runtime:2.4.1")
-    annotationProcessor ("androidx.room:room-compiler:2.4.1")
+    // RX
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.6")
+    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
+    implementation("androidx.room:room-rxjava3:$2.6.1")
+    // fireStore
+   implementation("com.google.firebase:firebase-firestore:24.10.2")
+    implementation("com.google.firebase:firebase-database:20.3.0")
+    // youtube video
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
+
 }

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment">
+    app:startDestination="@id/onBoardingFragment1">
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.foodplannerapp.view.Authentication.Presenter.SignInFragment"
+        android:name="com.example.foodplannerapp.Authentication.view.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
@@ -16,7 +16,34 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.foodplannerapp.view.Authentication.Presenter.SignUpFragment"
+        android:name="com.example.foodplannerapp.Authentication.view.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/onBoardingFragment1"
+        android:name="com.example.foodplannerapp.onBoarding.OnBoardingFragment1"
+        android:label="fragment_on_boarding1"
+        tools:layout="@layout/fragment_on_boarding1" >
+        <action
+            android:id="@+id/action_onBoardingFragment1_to_onBoardingFragment2"
+            app:destination="@id/onBoardingFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment2"
+        android:name="com.example.foodplannerapp.onBoarding.OnBoardingFragment2"
+        android:label="fragment_on_boarding2"
+        tools:layout="@layout/fragment_on_boarding2" >
+        <action
+            android:id="@+id/action_onBoardingFragment2_to_onBoardingFragment3"
+            app:destination="@id/onBoardingFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment3"
+        android:name="com.example.foodplannerapp.onBoarding.OnBoardingFragment3"
+        android:label="fragment_on_boarding3"
+        tools:layout="@layout/fragment_on_boarding3" >
+        <action
+            android:id="@+id/action_onBoardingFragment3_to_signInFragment"
+            app:destination="@id/signInFragment" />
+    </fragment>
 </navigation>

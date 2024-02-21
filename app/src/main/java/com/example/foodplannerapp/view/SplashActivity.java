@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.foodplannerapp.Authentication.AuthenticationActivity;
 import com.example.foodplannerapp.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -14,12 +15,15 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // on below line we are
                 // creating a new intent
-                Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                Intent i = new Intent(SplashActivity.this, AuthenticationActivity.class);
 
                 // on below line we are
                 // starting a new activity.
@@ -29,6 +33,6 @@ public class SplashActivity extends AppCompatActivity {
                 // our current activity.
                 finish();
             }
-        }, 2000);
+        }, 3500);
     }
 }

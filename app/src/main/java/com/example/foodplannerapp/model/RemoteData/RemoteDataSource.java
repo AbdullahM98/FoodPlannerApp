@@ -2,13 +2,17 @@ package com.example.foodplannerapp.model.RemoteData;
 
 import android.util.Log;
 
+import com.example.foodplannerapp.model.MealPojo;
+import com.example.foodplannerapp.model.RootArea;
 import com.example.foodplannerapp.model.RootCategories;
+import com.example.foodplannerapp.model.RootIngredient;
 import com.example.foodplannerapp.model.RootMeal;
 import com.example.foodplannerapp.utils.Constants;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import java.util.List;
+
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -16,11 +20,13 @@ public class RemoteDataSource  {
 
     private Retrofit retrofit;
     private ApiServices apiServices;
+    List<MealPojo> cachedMealsList;
     private static RemoteDataSource instance;
     private RemoteDataSource(){
         Log.d("TAG", "RemoteDataSource: constructor Remote ");
         retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create()).build();
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create()).build();
         apiServices = retrofit.create(ApiServices.class);
 
     }
@@ -30,46 +36,55 @@ public class RemoteDataSource  {
         }
         return instance;
     }
-    public void getCategoryCall(NetworkCallBack networkCallBack){
+    public Single<RootCategories> getCategoryCall(){
 
 
-        Call<RootCategories> call = apiServices.getCategories();
-        call.enqueue(new Callback<RootCategories>() {
-            @Override
-            public void onResponse(Call<RootCategories> call, Response<RootCategories> response) {
-                networkCallBack.onSuccessResult(response.body().getCategories());
-                Log.d("TAG", "onResponse: "+response.body());
-            }
+        Single<RootCategories> catObservable = apiServices.getCategories();
+        return catObservable;
 
-
-
-            @Override
-            public void onFailure(Call<RootCategories> call, Throwable t) {
-                networkCallBack.onFailedResult(t.getMessage());
-                Log.d("TAG", "onFailure: "+t.getMessage());
-            }
-        });
 
     }
-    public void getRandomMealCall(NetworkCallBack networkCallBack){
+    public  Single<RootMeal> getRandomMealCall(){
         Log.d("TAG", "getRandomMealCall: ");
-        Call<RootMeal> call = apiServices.getRandomMeal();
-        call.enqueue(new Callback<RootMeal>() {
-            @Override
-            public void onResponse(Call<RootMeal> call, Response<RootMeal> response) {
-                if(response.isSuccessful()){
-                    networkCallBack.onSuccessRandomMeal(response.body().getMeals());
-                    Log.d("TAG", "onResponse: "+ response.body().getMeals().get(0).getIdMeal());
-                }
-              //  Log.d("TAG", "onResponse: "+response.body().getMealList().get(0).strMeal);
+        Single<RootMeal> randomObservable = apiServices.getRandomMeal();
+        return randomObservable;
+    }
 
-            }
+    public Single<RootArea> getAllMealsByCountry(){
+        return apiServices.listAllMealsByCountry();
+    }
+    public Single<RootMeal> searchMealByName( String mealSearchName){
+        Single<RootMeal> searchObservable = apiServices.searchMealByName(mealSearchName);
+        return searchObservable ;
 
-            @Override
-            public void onFailure(Call<RootMeal> call, Throwable t) {
-                Log.d("TAG", "onFailure: ");
-                networkCallBack.onFailedResult(t.getMessage());
-            }
-        });
+    }
+
+    public Single<RootMeal>  filterMealByCategory( String catFilterName){
+        Single<RootMeal> filterObservable = apiServices.filterByCategory(catFilterName);
+
+        return filterObservable;
+    }
+
+    public Single<RootMeal> filterMealByIng( String filterName){
+        Single<RootMeal> filterObservable = apiServices.filterByIngredient(filterName);
+
+        return filterObservable;
+    }
+    public Single<RootMeal> filterMealByCountry( String filterName){
+        Single<RootMeal> filterObservable = apiServices.filterByCountry(filterName);
+
+        return filterObservable;
+    }
+    public Single<RootMeal> getMealByID( String id){
+        Log.d("TAGG", "getMealByID: "+id);
+        Single<RootMeal> getMealByIDObservable = apiServices.getMealById(id);
+        return  getMealByIDObservable;
+
+   }
+    public Single<RootIngredient> ListAllIngredients(){
+        Log.d("TAGG", "getMealByID: ");
+        Single<RootIngredient> getMealByIDObservable = apiServices.listAllMealsByIngredient();
+        return  getMealByIDObservable;
+
     }
 }
